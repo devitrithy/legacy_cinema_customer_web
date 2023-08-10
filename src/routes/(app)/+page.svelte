@@ -9,7 +9,7 @@
   for (let i = 0; i < 10; i++) {
     trailer.push(movies[i + 6].trailer);
   }
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     commings.push(movies[i + 3]);
   }
 </script>
@@ -26,11 +26,13 @@
 <h1 class="uppercase text-3xl text-black dark:text-white font-bold my-10">
   comming soon
 </h1>
-<div class="flex gap-5 overflow-auto w-full" id="style-1">
+<div class="flex flex-nowrap gap-5 w-full h-full overflow-x-auto" id="style-1">
   {#each commings as movie}
     <Card url={movie.poster.substring(8)} />
   {/each}
 </div>
+
+<div class="mt-10 h-[100px]" />
 
 <style>
   #style-1::-webkit-scrollbar {
