@@ -1,10 +1,19 @@
 <script lang="ts">
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-  import { Tooltip } from "flowbite-svelte";
+  import { Modal, Tooltip } from "flowbite-svelte";
   import play from "./play.png";
+  import Embed from "./embed.svelte";
 
   const endpoint = PUBLIC_API_ENDPOINT;
   export let url = `no-image.png`;
+  let popupModal = false;
+  export let trailerLink;
+  let trialerVideo;
+
+  const playTrailer = (trailer: String) => {
+    popupModal = true;
+    trialerVideo = trailer;
+  };
 </script>
 
 <Tooltip triggeredBy="#hover" class="z-50">Play Trailer</Tooltip>
@@ -14,7 +23,13 @@
     alt=""
     class="absolute group-hover:brightness-50 group-hover:blur-[1px] transition"
   />
-  <button id="hover" class="absolute text-2xl hidden group-hover:block m-10">
+  <button
+    on:click={() => {
+      playTrailer(trailerLink);
+    }}
+    id="hover"
+    class="absolute text-2xl hidden group-hover:block m-10"
+  >
     <img src={play} alt="button" width="50" srcset="" />
   </button>
 
@@ -27,3 +42,9 @@
     >Booking</button
   >
 </div>
+
+<Modal bind:open={popupModal} autoclose size="lg" outsideclose>
+  <div class="flex justify-center items-center">
+    <Embed width="770" height="400" url={trialerVideo} />
+  </div>
+</Modal>

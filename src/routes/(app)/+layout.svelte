@@ -3,6 +3,8 @@
   import Footer from "$lib/component/footer.svelte";
   import Slideshow from "$lib/component/slideshow.svelte";
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
+  import { page } from "$app/stores";
+  console.log($page.url.pathname);
   export let data;
   let slideshows = data.data.slideshows;
   let images = [];
@@ -17,7 +19,9 @@
 </script>
 
 <Navbar />
-<Slideshow {images} />
+{#if $page.url.pathname === "/"}
+  <Slideshow {images} />
+{/if}
 <div
   class="flex mx-auto text-black dark:text-white dark:bg-slate-950 my-14 mb-20"
 >

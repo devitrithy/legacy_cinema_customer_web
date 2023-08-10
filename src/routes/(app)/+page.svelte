@@ -9,7 +9,7 @@
   for (let i = 0; i < 10; i++) {
     trailer.push(movies[i + 6].trailer);
   }
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 5; i++) {
     commings.push(movies[i + 10]);
   }
 </script>
@@ -28,7 +28,7 @@
 </h1>
 <div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
   {#each commings as movie}
-    <Card url={movie.poster.substring(8)} />
+    <Card url={movie.poster.substring(8)} trailerLink={movie.trailer} />
   {/each}
 </div>
 
@@ -37,7 +37,7 @@
 </h1>
 <div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
   {#each movies as movie}
-    <Card url={movie.poster.substring(8)} />
+    <Card url={movie.poster.substring(8)} trailerLink={movie.trailer} />
   {/each}
 </div>
 
