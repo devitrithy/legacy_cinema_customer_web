@@ -72,32 +72,27 @@
     <NavLi
       href="/"
       active={$page.url.pathname === "/" ? true : false}
-      data-sveltekit-prefetch
-      data-sveltekit-preload-data>Home</NavLi
+      data-sveltekit-prefetch>Home</NavLi
     >
     <NavLi
       href="/showing"
       active={$page.url.pathname === "/showing" ? true : false}
-      data-sveltekit-prefetch
-      data-sveltekit-preload-data>Now Showing</NavLi
+      data-sveltekit-prefetch>Now Showing</NavLi
     >
     <NavLi
       href="/cinema"
       active={$page.url.pathname === "/cinema" ? true : false}
-      data-sveltekit-prefetch
-      data-sveltekit-preload-data>Cinemas</NavLi
+      data-sveltekit-prefetch>Cinemas</NavLi
     >
     <NavLi
       href="/aboutus"
       active={$page.url.pathname === "/aboutus" ? true : false}
-      data-sveltekit-prefetch
-      data-sveltekit-preload-data>About Us</NavLi
+      data-sveltekit-prefetch>About Us</NavLi
     >
     <NavLi
       href="/favorite"
       active={$page.url.pathname === "/favorite" ? true : false}
-      data-sveltekit-prefetch
-      data-sveltekit-preload-data>Favorite</NavLi
+      data-sveltekit-prefetch>Favorite</NavLi
     >
   </NavUl>
 </Navbar>
