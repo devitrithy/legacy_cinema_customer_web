@@ -8,6 +8,7 @@
 <iframe
   {width}
   {height}
+  loading="lazy"
   src={`https://www.youtube.com/embed/${url}`}
   {title}
   frameborder="0"

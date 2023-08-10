@@ -39,7 +39,10 @@
 <h1 class="uppercase text-3xl text-black dark:text-white font-bold my-10">
   Now Showing
 </h1>
-<div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
+<div
+  class="grid grid-flow-col gap-5 overflow-x-auto h-[460px] mb-20"
+  id="style-1"
+>
   {#each movies as movie}
     <Card
       url={movie.poster.substring(8)}

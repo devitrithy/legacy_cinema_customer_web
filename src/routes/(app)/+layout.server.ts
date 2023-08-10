@@ -11,5 +11,6 @@ export const load: LayoutServerLoad = async () => {
     });
     return data.json();
   };
+  console.log(data());
   return { data: data() };
 };

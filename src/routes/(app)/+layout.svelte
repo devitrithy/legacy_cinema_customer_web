@@ -8,6 +8,7 @@
   export let data;
 
   let slideshows = data.data.slideshows;
+  console.log(slideshows);
   let images = [];
   for (let i = 0; i < slideshows.length; i++) {
     images.push({
