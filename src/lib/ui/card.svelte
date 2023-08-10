@@ -7,7 +7,8 @@
   export let url = `no-image.png`;
 </script>
 
-<div class="group w-[300px] hover:bg-black relative h-[400px]">
+<Tooltip triggeredBy="#hover" class="z-50">Play Trailer</Tooltip>
+<div class="group w-[300px] hover:bg-black relative h-[400px] shadow-md">
   <img
     width="300"
     height="360"
@@ -18,7 +19,6 @@
   <button id="hover" class="absolute text-2xl hidden group-hover:block m-10">
     <img src={play} alt="button" width="50" srcset="" />
   </button>
-  <Tooltip triggeredBy="#hover" class="z-50">Play Trailer</Tooltip>
 
   <button
     class="absolute bottom-0 left-0 right-0 hidden group-hover:block bg-black uppercase py-2 opacity-95"
