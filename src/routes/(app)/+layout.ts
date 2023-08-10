@@ -1,7 +1,7 @@
 import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-import type { LayoutServerLoad } from "./$types";
+import type { LayoutLoad } from "./$types";
 
-export const load: LayoutServerLoad = async () => {
+export const load: LayoutLoad = async ({ setHeaders }) => {
   const customHeaders = {
     Authorization: "Bearer guest",
   };
@@ -9,6 +9,8 @@ export const load: LayoutServerLoad = async () => {
     const data = await fetch(`${PUBLIC_API_ENDPOINT}/slideshow`, {
       headers: customHeaders,
     });
+    console.log(data.headers.get("slideshow-cache"));
+
     return data.json();
   };
   console.log(data());
