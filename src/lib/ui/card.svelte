@@ -34,11 +34,11 @@
   </button>
 
   <button
-    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-black uppercase py-2 opacity-95"
+    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900"
     >info</button
   >
   <button
-    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95"
+    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-red-900"
     >Booking</button
   >
 </div>

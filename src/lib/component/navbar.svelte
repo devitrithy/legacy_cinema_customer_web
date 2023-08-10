@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import src from "../../public/logo/Logo.png";
   import {
     Navbar,
@@ -15,7 +16,7 @@
   } from "flowbite-svelte";
 </script>
 
-<Navbar let:hidden let:toggle>
+<Navbar let:hidden let:toggle class="fixed z-50">
   <NavBrand href="/">
     <img {src} class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
   </NavBrand>
@@ -68,10 +69,25 @@
     <DropdownItem>Sign out</DropdownItem>
   </Dropdown>
   <NavUl {hidden}>
-    <NavLi href="/" active={true}>Home</NavLi>
-    <NavLi href="/showing">Now Showing</NavLi>
-    <NavLi href="/cinema">Cinemas</NavLi>
-    <NavLi href="/aboutus">About Us</NavLi>
-    <NavLi href="/favorite">Favorite</NavLi>
+    <NavLi href="/" active={$page.url.pathname === "/" ? true : false}
+      >Home</NavLi
+    >
+    <NavLi
+      href="/showing"
+      active={$page.url.pathname === "/showing" ? true : false}
+      >Now Showing</NavLi
+    >
+    <NavLi
+      href="/cinema"
+      active={$page.url.pathname === "/cinema" ? true : false}>Cinemas</NavLi
+    >
+    <NavLi
+      href="/aboutus"
+      active={$page.url.pathname === "/aboutus" ? true : false}>About Us</NavLi
+    >
+    <NavLi
+      href="/favorite"
+      active={$page.url.pathname === "/favorite" ? true : false}>Favorite</NavLi
+    >
   </NavUl>
 </Navbar>
