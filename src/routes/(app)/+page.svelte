@@ -28,7 +28,11 @@
 </h1>
 <div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
   {#each commings as movie}
-    <Card url={movie.poster.substring(8)} trailerLink={movie.trailer} />
+    <Card
+      url={movie.poster.substring(8)}
+      trailerLink={movie.trailer}
+      id={movie.movie_id}
+    />
   {/each}
 </div>
 
@@ -37,7 +41,11 @@
 </h1>
 <div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
   {#each movies as movie}
-    <Card url={movie.poster.substring(8)} trailerLink={movie.trailer} />
+    <Card
+      url={movie.poster.substring(8)}
+      trailerLink={movie.trailer}
+      id={movie.movie_id}
+    />
   {/each}
 </div>
 

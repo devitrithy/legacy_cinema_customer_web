@@ -69,25 +69,35 @@
     <DropdownItem>Sign out</DropdownItem>
   </Dropdown>
   <NavUl {hidden}>
-    <NavLi href="/" active={$page.url.pathname === "/" ? true : false}
-      >Home</NavLi
+    <NavLi
+      href="/"
+      active={$page.url.pathname === "/" ? true : false}
+      data-sveltekit-prefetch
+      data-sveltekit-preload-data>Home</NavLi
     >
     <NavLi
       href="/showing"
       active={$page.url.pathname === "/showing" ? true : false}
-      >Now Showing</NavLi
+      data-sveltekit-prefetch
+      data-sveltekit-preload-data>Now Showing</NavLi
     >
     <NavLi
       href="/cinema"
-      active={$page.url.pathname === "/cinema" ? true : false}>Cinemas</NavLi
+      active={$page.url.pathname === "/cinema" ? true : false}
+      data-sveltekit-prefetch
+      data-sveltekit-preload-data>Cinemas</NavLi
     >
     <NavLi
       href="/aboutus"
-      active={$page.url.pathname === "/aboutus" ? true : false}>About Us</NavLi
+      active={$page.url.pathname === "/aboutus" ? true : false}
+      data-sveltekit-prefetch
+      data-sveltekit-preload-data>About Us</NavLi
     >
     <NavLi
       href="/favorite"
-      active={$page.url.pathname === "/favorite" ? true : false}>Favorite</NavLi
+      active={$page.url.pathname === "/favorite" ? true : false}
+      data-sveltekit-prefetch
+      data-sveltekit-preload-data>Favorite</NavLi
     >
   </NavUl>
 </Navbar>

@@ -5,6 +5,7 @@
   import Embed from "./embed.svelte";
 
   const endpoint = PUBLIC_API_ENDPOINT;
+  export let id;
   export let url = `no-image.png`;
   let popupModal = false;
   export let trailerLink;
@@ -16,7 +17,7 @@
   };
 </script>
 
-<Tooltip triggeredBy="#hover" class="z-50">Play Trailer</Tooltip>
+<Tooltip triggeredBy={`#hover${id}`} class="z-50">Play Trailer</Tooltip>
 <div class="group w-[300px] hover:bg-black relative h-[430px] shadow-md">
   <img
     src={`${endpoint}/thumbnail/${url}?w=300&h=450`}
@@ -27,7 +28,7 @@
     on:click={() => {
       playTrailer(trailerLink);
     }}
-    id="hover"
+    id={`hover${id}`}
     class="absolute text-2xl hidden group-hover:block m-10"
   >
     <img src={play} alt="button" width="50" srcset="" />
