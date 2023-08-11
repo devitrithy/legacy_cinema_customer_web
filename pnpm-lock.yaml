@@ -10,6 +10,9 @@ dependencies:
   flowbite-svelte:
     specifier: ^0.42.0
     version: 0.42.0(svelte@4.1.2)
+  moment:
+    specifier: ^2.29.4
+    version: 2.29.4
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -27,6 +30,9 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.27)
+  flowbite-svelte-icons:
+    specifier: ^0.3.6
+    version: 0.3.6(svelte@4.1.2)(tailwind-merge@1.14.0)(tailwindcss@3.3.3)
   postcss:
     specifier: ^8.4.24
     version: 8.4.27
@@ -814,6 +820,18 @@ packages:
       to-regex-range: 5.0.1
     dev: true
 
+  /flowbite-svelte-icons@0.3.6(svelte@4.1.2)(tailwind-merge@1.14.0)(tailwindcss@3.3.3):
+    resolution: {integrity: sha512-4YEq++cbD36KF+zGgLqfkmQgfWGMAP7tjDbesuieROx6UgbMBTtj7f4n49iO+g1cMLelGsCkyZiwelCXDbIJ2w==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0
+      tailwind-merge: ^1.13.2
+      tailwindcss: ^3.3.2
+    dependencies:
+      svelte: 4.1.2
+      tailwind-merge: 1.14.0
+      tailwindcss: 3.3.3
+    dev: true
+
   /flowbite-svelte@0.42.0(svelte@4.1.2):
     resolution: {integrity: sha512-9ySPhiOtWcfItlCrdAlQ/+Yla3dnqdeKvc2yskcqYipHLOgadMya3y6eCAuLC3jLnC+DnzNmlsFQVHYDXb66rw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
@@ -1069,6 +1087,10 @@ packages:
       pkg-types: 1.0.3
       ufo: 1.2.0
     dev: true
+
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -1536,7 +1558,6 @@ packages:
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
-    dev: false
 
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}

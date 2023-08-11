@@ -22,6 +22,7 @@
   <img
     src={`${endpoint}/thumbnail/${url}?w=300&h=450`}
     alt=""
+    loading="lazy"
     class="absolute group-hover:brightness-50 group-hover:blur-[1px] transition"
   />
   <button
@@ -34,13 +35,15 @@
     <img src={play} alt="button" width="50" srcset="" />
   </button>
 
-  <button
-    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900 w-full"
-    >info</button
+  <a
+    href={`/showing/info/${id}`}
+    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900 w-full text-center"
+    >info</a
   >
-  <button
-    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-red-900 w-full"
-    >Booking</button
+  <a
+    href={`/showing/booking/${id}`}
+    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-red-900 w-full text-center"
+    >Booking</a
   >
 </div>
 

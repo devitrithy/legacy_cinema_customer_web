@@ -12,24 +12,25 @@
     images.push({
       id: i,
       name: slideshows[i].title,
-      imgurl: `${PUBLIC_API_ENDPOINT}/${slideshows[i].poster}`,
+      imgurl: `${PUBLIC_API_ENDPOINT}/thumbnail/${slideshows[
+        i
+      ].poster.substring(8)}?w=1920&h=500`,
       attribution: slideshows[i].title,
     });
   }
 </script>
 
 <title>Legacy Cinema</title>
-<Navbar />
 <div>
   <slot name="slideshow" />
 </div>
-<div class="pt-[70px]">
-  {#if $page.url.pathname === "/"}
+{#if $page.url.pathname === "/"}
+  <div class="pt-[70px]">
     <Slideshow {images} />
-  {/if}
-</div>
+  </div>
+{/if}
 <div
-  class="translate-y-full fixed top-0 left-0 right-0 transition-transform duration-300"
+  class="translate-y-full fixed top-0 left-0 right-0 transition-transform duration-300 z-50"
 >
   <Navbar />
 </div>

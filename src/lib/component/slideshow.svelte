@@ -4,7 +4,6 @@
 </script>
 
 <Carousel
-  classSlide="flex items-center justify-center h-full w-full !rounded-none !bg-transparent"
   {images}
   showThumbs={false}
   showIndicators={true}
