@@ -1,25 +1,45 @@
 <script>
+  import play from "../../lib/ui/play.png";
   export let data;
   let movies = data.data.movies;
   let trailer = [];
   let commings = [];
   import Card from "$lib/ui/card.svelte";
-  import Embed from "$lib/ui/embed.svelte";
-  console.log(movies);
+  import { EmbedModal } from "$lib";
   for (let i = 0; i < 10; i++) {
     trailer.push(movies[i + 6].trailer);
   }
   for (let i = 0; i < 5; i++) {
     commings.push(movies[i + 10]);
   }
+  let popupModal = false;
+  let trialerVideo = "";
+  const embedModal = (vid) => {
+    popupModal = true;
+    trialerVideo = vid;
+  };
 </script>
 
 <h1 class="uppercase text-3xl text-black dark:text-white font-bold my-10">
   new trailer
 </h1>
-<div class="flex gap-5 overflow-auto w-full" id="style-1">
+<div class="grid grid-flow-col gap-5 overflow-x-auto" id="style-1">
   {#each trailer as movie}
-    <Embed url={movie} width="300" height="200" />
+    <div
+      class="relative w-[300px] h-200"
+      on:click={() => {
+        embedModal(movie);
+      }}
+    >
+      <button class="absolute mr-[110px] top-0 right-0 bottom-0">
+        <img src={play} alt="" width="65" />
+      </button>
+      <img
+        src={`https://img.youtube.com/vi/${movie}/hqdefault.jpg`}
+        alt=""
+        srcset=""
+      />
+    </div>
   {/each}
 </div>
 
@@ -50,6 +70,9 @@
       id={movie.movie_id}
     />
   {/each}
+</div>
+<div on:click={() => (popupModal = false)}>
+  <EmbedModal {popupModal} {trialerVideo} />
 </div>
 
 <style>

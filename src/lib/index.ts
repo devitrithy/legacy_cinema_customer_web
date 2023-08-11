@@ -4,3 +4,4 @@ export { default as Footer } from "./component/footer.svelte";
 export { default as Slideshow } from "./component/slideshow.svelte";
 export { default as Embed } from "./ui/embed.svelte";
 export { default as Card } from "./ui/card.svelte";
+export { default as EmbedModal } from "./ui/embedModal.svelte";

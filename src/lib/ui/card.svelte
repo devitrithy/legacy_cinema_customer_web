@@ -1,8 +1,8 @@
 <script lang="ts">
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-  import { Modal, Tooltip } from "flowbite-svelte";
+  import { Tooltip } from "flowbite-svelte";
   import play from "./play.png";
-  import Embed from "./embed.svelte";
+  import EmbedModal from "./embedModal.svelte";
 
   const endpoint = PUBLIC_API_ENDPOINT;
   export let id: String;
@@ -47,8 +47,6 @@
   >
 </div>
 
-<Modal bind:open={popupModal} autoclose size="lg" outsideclose>
-  <div class="flex justify-center items-center">
-    <Embed width={770} height={400} url={trialerVideo} />
-  </div>
-</Modal>
+<div on:click={() => (popupModal = false)}>
+  <EmbedModal {popupModal} {trialerVideo} />
+</div>
