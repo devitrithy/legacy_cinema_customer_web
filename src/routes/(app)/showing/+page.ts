@@ -6,8 +6,9 @@ export const load: PageLoad = async ({ setHeaders }) => {
     const data = await fetch(`${PUBLIC_API_ENDPOINT}/movie`, {
       headers: { Authorization: "Bearer guest" },
     });
-    if (data.headers.get("Cache-Control")) {
-      setHeaders({ "Cache-Control": "max=3600" });
+    const cache = data.headers.get("cache-control");
+    if (cache) {
+      setHeaders({ "cache-control": cache });
     }
     return data.json();
   };
