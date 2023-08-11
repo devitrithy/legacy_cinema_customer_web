@@ -10,9 +10,6 @@ export const load: LayoutLoad = async ({ url, setHeaders }) => {
       const data = await fetch(`${PUBLIC_API_ENDPOINT}/slideshow`, {
         headers: customHeaders,
       });
-      // if (data.headers.get("Cache-Control") && url.pathname === "/") {
-      //   setHeaders({ "Cache-Control": "max=3600" });
-      // }
       return data.json();
     };
     return { data: data() };

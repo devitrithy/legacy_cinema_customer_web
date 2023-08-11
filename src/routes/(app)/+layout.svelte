@@ -7,16 +7,14 @@
   export let data;
 
   let images = [];
-  if ($page.url.pathname === "/") {
-    let slideshows = data.data.slideshows;
-    for (let i = 0; i < slideshows.length; i++) {
-      images.push({
-        id: i,
-        name: slideshows[i].title,
-        imgurl: `${PUBLIC_API_ENDPOINT}/${slideshows[i].poster}`,
-        attribution: slideshows[i].title,
-      });
-    }
+  let slideshows = data.data.slideshows;
+  for (let i = 0; i < slideshows.length; i++) {
+    images.push({
+      id: i,
+      name: slideshows[i].title,
+      imgurl: `${PUBLIC_API_ENDPOINT}/${slideshows[i].poster}`,
+      attribution: slideshows[i].title,
+    });
   }
 </script>
 
