@@ -36,7 +36,7 @@
   </button>
 
   <a
-    href={`/showing/info/${id}`}
+    href={`/showing/${id}`}
     class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900 w-full text-center"
     >info</a
   >
