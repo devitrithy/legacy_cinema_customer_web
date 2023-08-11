@@ -6,17 +6,15 @@ export const load: LayoutLoad = async ({ url, setHeaders }) => {
     Authorization: "Bearer guest",
   };
   try {
-    if (url.pathname === "/") {
-      const data = async () => {
-        const data = await fetch(`${PUBLIC_API_ENDPOINT}/slideshow`, {
-          headers: customHeaders,
-        });
-        // if (data.headers.get("Cache-Control") && url.pathname === "/") {
-        //   setHeaders({ "Cache-Control": "max=3600" });
-        // }
-        return data.json();
-      };
-      return { data: data() };
-    }
+    const data = async () => {
+      const data = await fetch(`${PUBLIC_API_ENDPOINT}/slideshow`, {
+        headers: customHeaders,
+      });
+      // if (data.headers.get("Cache-Control") && url.pathname === "/") {
+      //   setHeaders({ "Cache-Control": "max=3600" });
+      // }
+      return data.json();
+    };
+    return { data: data() };
   } catch (error) {}
 };
