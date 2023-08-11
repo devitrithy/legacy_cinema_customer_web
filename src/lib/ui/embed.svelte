@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let url = "zgycl_7EZeE";
+  export let url: String = "zgycl_7EZeE";
   export let title = "Test";
   export let width = 500;
   export let height = 300;

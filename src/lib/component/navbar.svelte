@@ -49,7 +49,7 @@
         >
       </svelte:fragment>
     </DarkMode>
-    <Avatar id="avatar-menu" src="/images/profile-picture-3.webp" />
+    <!-- <Avatar id="avatar-menu" src="/images/profile-picture-3.webp" /> -->
     <NavHamburger
       on:click={toggle}
       class1="w-full md:flex md:w-auto md:order-1"

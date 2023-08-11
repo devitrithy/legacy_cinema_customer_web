@@ -5,11 +5,11 @@
   import Embed from "./embed.svelte";
 
   const endpoint = PUBLIC_API_ENDPOINT;
-  export let id;
+  export let id: String;
   export let url = `no-image.png`;
   let popupModal = false;
-  export let trailerLink;
-  let trialerVideo;
+  export let trailerLink: String;
+  let trialerVideo: String;
 
   const playTrailer = (trailer: String) => {
     popupModal = true;
@@ -35,17 +35,17 @@
   </button>
 
   <button
-    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900"
+    class="absolute bottom-11 left-0 right-0 hidden group-hover:block bg-stone-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-stone-900 w-full"
     >info</button
   >
   <button
-    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-red-900"
+    class="absolute bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 hover:bg-red-900 w-full"
     >Booking</button
   >
 </div>
 
 <Modal bind:open={popupModal} autoclose size="lg" outsideclose>
   <div class="flex justify-center items-center">
-    <Embed width="770" height="400" url={trialerVideo} />
+    <Embed width={770} height={400} url={trialerVideo} />
   </div>
 </Modal>
