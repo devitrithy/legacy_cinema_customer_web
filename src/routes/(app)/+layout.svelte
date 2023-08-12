@@ -6,10 +6,13 @@
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   let m = { x: 0, y: 0 };
+  let isNavbarVisible = true;
+  let isFooterVisible = true;
 
   function handleMove(event) {
     m.x = event.clientX;
     m.y = event.clientY;
+    console.log(m.y);
     if (m.y > 800) {
       isFooterVisible = true;
     } else {
@@ -29,9 +32,6 @@
       attribution: slideshows[i].title,
     });
   }
-
-  let isNavbarVisible = true;
-  let isFooterVisible = true;
 
   function handleScroll() {
     const currentScrollPosition = window.scrollY;
@@ -73,8 +73,8 @@
   </main>
 </div>
 <div
-  class:translate-y-0={isFooterVisible}
-  class="translate-y-full fixed bottom-0 left-0 right-0 footer transition-transform duration-300"
+  class:translate-y-full={!isFooterVisible}
+  class="translate-y-0 fixed bottom-0 left-0 right-0 transition-transform duration-300"
 >
   <Footer />
 </div>

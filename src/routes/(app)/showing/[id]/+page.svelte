@@ -14,7 +14,7 @@
 </script>
 
 <title>Legacy Cinema | {movie.title}</title>
-<main class="m-5 container text-black dark:text-white mt-20 mx-auto">
+<main class=" container text-black dark:text-white mx-auto">
   <div class="flex gap-10 mx-10 mt-5">
     <img
       src={endpoint + movie.poster.substring(8) + "?w=432&h=708"}
