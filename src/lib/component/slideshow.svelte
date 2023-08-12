@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Carousel } from "flowbite-svelte";
-  export let images = [];
+  export let images: any = [];
 </script>
 
 <Carousel
   {images}
   showThumbs={false}
   showIndicators={true}
-  slideControls={false}
+  slideControls={true}
   showCaptions={false}
   loop
-  duration="5000"
+  duration={5000}
 />

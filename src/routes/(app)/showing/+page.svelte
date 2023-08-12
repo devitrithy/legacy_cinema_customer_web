@@ -6,6 +6,7 @@
   let movies = data.data.movies;
 </script>
 
+<title>Legacy Cinema | Now Showing</title>
 <h1 class="my-12 text-center uppercase text-3xl font-bold">Now Showing</h1>
 <div
   class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 2xl:grid-cols-5 gap-10 mb-20 justify-items-center"

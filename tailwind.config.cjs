@@ -12,19 +12,19 @@ const config = {
   theme: {
     extend: {
       colors: {
-        // flowbite-svelte
         primary: {
-          50: "#FFF5F2",
-          100: "#FFF1EE",
-          200: "#FFE4DE",
-          300: "#FFD5CC",
-          400: "#FFBCAD",
-          500: "#FE795D",
-          600: "#EF562F",
-          700: "#EB4F27",
-          800: "#CC4522",
-          900: "#A5371B",
+          50: "#fae3e5",
+          100: "#fcd2d4",
+          200: "#fcb8bc",
+          300: "#ff9ca1",
+          400: "#ff8c92",
+          500: "#ff737a",
+          600: "#ff5c64",
+          700: "#ff3d47",
+          800: "#ff2631",
+          900: "#ff0f1b",
         },
+        // flowbite-svelte
       },
     },
   },

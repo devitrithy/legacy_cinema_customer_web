@@ -16,7 +16,7 @@
   } from "flowbite-svelte";
 </script>
 
-<Navbar let:hidden let:toggle class="fixed z-50">
+<Navbar let:hidden let:toggle class="z-50">
   <NavBrand href="/">
     <img {src} class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
   </NavBrand>

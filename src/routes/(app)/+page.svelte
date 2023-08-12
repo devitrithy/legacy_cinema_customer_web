@@ -20,6 +20,7 @@
   };
 </script>
 
+<title>Legacy Cinema | Home</title>
 <h1 class="uppercase text-3xl text-black dark:text-white font-bold my-10">
   new trailer
 </h1>

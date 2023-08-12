@@ -1,15 +1,15 @@
 <script lang="ts">
-  import play from "./play.png";
   export let url: String = "zgycl_7EZeE";
   export let title = "Test";
-  export let width = 500;
-  export let height = 300;
+  export let width;
+  export let height = 400;
   export let auto = 0;
 </script>
 
 <iframe
   {width}
   {height}
+  class="h-[{height}px] aspect-auto"
   loading="lazy"
   src={`https://www.youtube-nocookie.com/embed/${url}?autoplay=${auto}&mute=1`}
   {title}
