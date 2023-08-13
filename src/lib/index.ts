@@ -5,3 +5,6 @@ export { default as Slideshow } from "./component/slideshow.svelte";
 export { default as Embed } from "./ui/embed.svelte";
 export { default as Card } from "./ui/card.svelte";
 export { default as EmbedModal } from "./ui/embedModal.svelte";
+export { default as List } from "./ui/list.svelte";
+export { default as Seat } from "./ui/seat.svelte";
+export { default as ScrollTo } from "./ui/scrollto.svelte";

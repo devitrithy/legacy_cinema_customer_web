@@ -6,13 +6,11 @@
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   let m = { x: 0, y: 0 };
-  let isNavbarVisible = true;
   let isFooterVisible = true;
 
   function handleMove(event) {
     m.x = event.clientX;
     m.y = event.clientY;
-    console.log(m.y);
     if (m.y > 800) {
       isFooterVisible = true;
     } else {
@@ -37,10 +35,8 @@
     const currentScrollPosition = window.scrollY;
 
     if (currentScrollPosition > lastScrollPosition) {
-      isNavbarVisible = false;
       isFooterVisible = false;
     } else {
-      isNavbarVisible = true;
       isFooterVisible = true;
     }
 

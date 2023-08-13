@@ -10,6 +10,8 @@
   let popupModal = false;
   export let trailerLink: String;
   let trialerVideo: String;
+  export let title;
+  export let duration;
 
   const playTrailer = (trailer: String) => {
     popupModal = true;
