@@ -26,24 +26,18 @@
   let selected: String[] = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
-    await axios
-      .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: "Bearer guest" },
-      })
-      .then((res) => {
-        tickets = res.data;
-        loading = false;
-      });
-    loading = true;
-    await axios
-      .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-        headers: { Authorization: "Bearer guest" },
-      })
-      .then((res) => {
-        showing = res.data.showingtime[0];
-        loading = false;
-      });
+    selected = [];
+    total = 0;
+    const res = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
+      headers: { Authorization: "Bearer guest" },
+    });
+    tickets = [];
+    const show = await axios.get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
+      headers: { Authorization: "Bearer guest" },
+    });
 
+    tickets = res.data;
+    showing = show.data.showingtime[0];
     showSeat = true;
   };
 
@@ -110,27 +104,16 @@
             </div>
             <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
               {#each hall.showing as showingTime}
-                {#if !loading}
-                  <Button
-                    outline
-                    on:click={() => {
-                      showingSeat(showingTime.showing_id);
-                    }}
-                  >
-                    {moment(showingTime.showing_date)
-                      .tz("Atlantic/Reykjavik")
-                      .format("LT")}
-                  </Button>
-                {:else}
-                  <Button outline>
-                    <Spinner color="gray" size={4} />
-                    <span class="ml-3">
-                      {moment(showingTime.showing_date)
-                        .tz("Atlantic/Reykjavik")
-                        .format("LT")}
-                    </span>
-                  </Button>
-                {/if}
+                <Button
+                  outline
+                  on:click={() => {
+                    showingSeat(showingTime.showing_id);
+                  }}
+                >
+                  {moment(showingTime.showing_date)
+                    .tz("Atlantic/Reykjavik")
+                    .format("LT")}
+                </Button>
               {/each}
             </div>
           {/each}
