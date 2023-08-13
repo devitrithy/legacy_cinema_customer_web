@@ -26,17 +26,24 @@
   let selected: String[] = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
-    const res = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-      headers: { Authorization: "Bearer guest" },
-    });
-    const show = await axios.get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-      headers: { Authorization: "Bearer guest" },
-    });
-    console.log(show.data);
-    console.log(res.data);
+    await axios
+      .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
+        headers: { Authorization: "Bearer guest" },
+      })
+      .then((res) => {
+        tickets = res.data;
+        loading = false;
+      });
+    loading = true;
+    await axios
+      .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
+        headers: { Authorization: "Bearer guest" },
+      })
+      .then((res) => {
+        showing = res.data.showingtime[0];
+        loading = false;
+      });
 
-    tickets = res.data;
-    showing = show.data.showingtime[0];
     showSeat = true;
   };
 
@@ -103,16 +110,25 @@
             </div>
             <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
               {#each hall.showing as showingTime}
-                <Button
-                  outline
-                  on:click={() => {
-                    showingSeat(showingTime.showing_id);
-                  }}
-                >
-                  {moment(showingTime.showing_date)
-                    .tz("Atlantic/Reykjavik")
-                    .format("LT")}
-                </Button>
+                {#if !loading}
+                  <Button
+                    outline
+                    on:click={() => {
+                      showingSeat(showingTime.showing_id);
+                    }}
+                  >
+                    {moment(showingTime.showing_date)
+                      .tz("Atlantic/Reykjavik")
+                      .format("LT")}
+                  </Button>
+                {:else}
+                  <Button outline>
+                    <Spinner color="gray" size={4} />
+                    {moment(showingTime.showing_date)
+                      .tz("Atlantic/Reykjavik")
+                      .format("LT")}
+                  </Button>
+                {/if}
               {/each}
             </div>
           {/each}
