@@ -27,11 +27,11 @@
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
     selected = [];
+    tickets = [];
     total = 0;
     const res = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
       headers: { Authorization: "Bearer guest" },
     });
-    tickets = [];
     const show = await axios.get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
       headers: { Authorization: "Bearer guest" },
     });
