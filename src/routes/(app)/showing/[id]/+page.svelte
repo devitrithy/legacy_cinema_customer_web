@@ -124,9 +124,11 @@
                 {:else}
                   <Button outline>
                     <Spinner color="gray" size={4} />
-                    {moment(showingTime.showing_date)
-                      .tz("Atlantic/Reykjavik")
-                      .format("LT")}
+                    <span class="ml-3">
+                      {moment(showingTime.showing_date)
+                        .tz("Atlantic/Reykjavik")
+                        .format("LT")}
+                    </span>
                   </Button>
                 {/if}
               {/each}
