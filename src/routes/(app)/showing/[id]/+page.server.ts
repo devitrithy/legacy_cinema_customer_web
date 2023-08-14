@@ -58,7 +58,7 @@ export const actions: Actions = {
     let seats = seat?.toString().split(",");
     let items = [
       {
-        day: url.searchParams.get("day") || new Date().getDate(),
+        day: p.get("date") || new Date().getDate(),
         mid: params.id,
         seats: p.get("pay"),
         sid: p.get("sid"),

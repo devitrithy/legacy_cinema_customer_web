@@ -253,7 +253,7 @@
             <Spinner color="gray" />
           </div>
         {:else}
-          <div class="flex justify-center">
+          <div class="flex justify-center h-full w-full">
             <div
               class="grid w-5 dark:text-white my-5 justify-center items-center"
             >
@@ -358,6 +358,11 @@
         <h1><span class="font-bold text-xl">Total ${total}</span></h1>
         <form action="?/pay" method="post">
           <input type="hidden" name="pay" bind:value={selected} />
+          <input
+            type="hidden"
+            name="date"
+            value={$page.url.searchParams.get("day")}
+          />
           <input type="hidden" name="sid" bind:value={showing.showing_id} />
           <input type="hidden" name="title" value={movie.title} />
           <input type="hidden" name="price" value={showing.price} />
