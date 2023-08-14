@@ -163,7 +163,7 @@
           href={`?day=${new Date().getDate()}`}
           on:click={changeDate}
           outline={Number(new Date().getDate()) !==
-            Number($page.url.searchParams.get("day"))}
+            Number($page.url.searchParams.get("day") || new Date().getDate())}
           >{moment(new Date()).tz("Atlantic/Reykjavik").format("LL")}</Button
         >
         <Button
