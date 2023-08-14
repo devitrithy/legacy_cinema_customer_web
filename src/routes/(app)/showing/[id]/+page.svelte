@@ -1,9 +1,13 @@
 <script lang="ts">
   import moment from "moment-timezone";
+  import checkMark from "./checked.png";
+  import removeMark from "./remove.png";
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
   import axios from "axios";
-  import { Button, Indicator, Spinner, Tooltip } from "flowbite-svelte";
+  import { Button, Indicator, Modal, Spinner, Tooltip } from "flowbite-svelte";
   import { Embed, ScrollTo, Seat } from "$lib";
+  import { page } from "$app/stores";
+  import { onMount } from "svelte";
   function convertTZ(date: Date) {
     return new Date(
       (typeof date === "string" ? new Date(date) : date).toLocaleString(
@@ -12,33 +16,81 @@
       )
     );
   }
+  let nextDay = (day: Number) => {
+    return new Date(Date.now() + 3600 * 1000 * 24 * day);
+  };
   export let data;
   let loading = false;
-  let { locations } = data;
+  let locations: any;
+  $: locations = data.locations;
   let location = false;
   let movie = data.movie.movie[0];
   let showSeat = false;
   let total: number = 0;
   let disabled = false;
+  let resultModal = false;
+  let success = false;
+  let resutlMessage = "";
 
-  let tickets: any;
+  onMount(async () => {
+    if ($page.url.searchParams.get("result") === "success") {
+      // TODO: FIX THIS IF I HAVE TIME THE BUG IS ANYONE CAN ACCESS THIS ROUTE
+      success = true;
+      resutlMessage =
+        "You booked the ticket successfully, Please tell the staff your name to recived the ticket.";
+      resultModal = true;
+      const id = $page.url.searchParams.get("sid");
+      const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
+        headers: { Authorization: "Bearer guest" },
+      });
+      const showingDate = await axios.get(
+        `${PUBLIC_API_ENDPOINT}/showing/${id}`,
+        {
+          headers: { Authorization: "Bearer guest" },
+        }
+      );
+      tickets = ticket.data;
+      showing = showingDate.data.showingtime[0];
+      location = true;
+      showSeat = true;
+    } else if ($page.url.searchParams.get("result") === "cancel") {
+      success = false;
+      resultModal = true;
+      resutlMessage =
+        "You just cancel the booking. Feel free to check more movie you want";
+    } else {
+      //
+    }
+  });
+
+  const changeDate = () => {
+    showSeat = false;
+  };
+
+  let tickets: any[] = [];
   let showing: any;
   let selected: String[] = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
     selected = [];
     tickets = [];
-    total = 0;
-    const res = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-      headers: { Authorization: "Bearer guest" },
-    });
-    const show = await axios.get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-      headers: { Authorization: "Bearer guest" },
-    });
 
-    tickets = res.data;
-    showing = show.data.showingtime[0];
-    showSeat = true;
+    total = 0;
+    await axios
+      .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
+        headers: { Authorization: "Bearer guest" },
+      })
+      .then(async (res) => {
+        tickets = res.data;
+        await axios
+          .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
+            headers: { Authorization: "Bearer guest" },
+          })
+          .then((res) => {
+            showing = res.data.showingtime[0];
+            showSeat = true;
+          });
+      });
   };
 
   const select = (seatNumber: String) => {
@@ -89,7 +141,36 @@
 </div>
 {#if location}
   <div class="m-10" id="location">
-    <p class="uppercase text-2xl font-bold">Location</p>
+    <div class="flex justify-between">
+      <p class="uppercase text-2xl font-bold">Location</p>
+      <div>
+        <Button
+          href={`?day=${new Date().getDate()}`}
+          on:click={changeDate}
+          outline={Number(new Date().getDate()) !==
+            Number($page.url.searchParams.get("day"))}
+          >{moment(new Date()).tz("Atlantic/Reykjavik").format("LL")}</Button
+        >
+        <Button
+          href={`?day=${new Date().getDate() + 1}`}
+          on:click={changeDate}
+          outline={Number(new Date(nextDay(1)).getDate()) !==
+            Number($page.url.searchParams.get("day"))}
+          >{moment(new Date(nextDay(1)))
+            .tz("Atlantic/Reykjavik")
+            .format("LL")}</Button
+        >
+        <Button
+          href={`?day=${new Date().getDate() + 2}`}
+          on:click={changeDate}
+          outline={Number(new Date(nextDay(2)).getDate()) !==
+            Number($page.url.searchParams.get("day"))}
+          >{moment(new Date(nextDay(2)))
+            .tz("Atlantic/Reykjavik")
+            .format("LL")}</Button
+        >
+      </div>
+    </div>
     <main class="my-5">
       {#each locations as location}
         <div class="dark:bg-slate-900 p-4 mb-4">
@@ -261,3 +342,12 @@
     </div>
   </main>
 {/if}
+
+<Modal bind:open={resultModal} size="xs" autoclose>
+  <div class="text-center flex flex-col items-center">
+    <img src={success ? checkMark : removeMark} alt="" srcset="" class="w-20" />
+    <h3 class="m-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+      {resutlMessage}
+    </h3>
+  </div>
+</Modal>

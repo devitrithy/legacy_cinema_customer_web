@@ -24,6 +24,14 @@ export const load: PageServerLoad = async ({ params, url }) => {
   } else {
     date = url.searchParams.get("day") || new Date().getDate() + 1;
   }
+  if (
+    Number(date) < Number(new Date().getDate()) &&
+    Number(date) > Number(new Date().getDate() + 2)
+  ) {
+    //
+    date = new Date().getDate();
+  }
+
   const location = async () => {
     const res = await fetch(
       `${PUBLIC_API_ENDPOINT}/showing/now/${id}?day=${date}`,
@@ -44,12 +52,13 @@ export const load: PageServerLoad = async ({ params, url }) => {
 };
 
 export const actions: Actions = {
-  pay: async ({ request, params }) => {
+  pay: async ({ request, params, url }) => {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
     let items = [
       {
+        day: url.searchParams.get("day") || new Date().getDate(),
         mid: params.id,
         seats: p.get("pay"),
         sid: p.get("sid"),
