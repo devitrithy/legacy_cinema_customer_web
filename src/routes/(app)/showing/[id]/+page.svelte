@@ -2,7 +2,10 @@
   import moment from "moment-timezone";
   import checkMark from "./checked.png";
   import removeMark from "./remove.png";
-  import { PUBLIC_API_ENDPOINT } from "$env/static/public";
+  import {
+    PUBLIC_API_ENDPOINT,
+    PUBLIC_SECRET_GUEST_KEY,
+  } from "$env/static/public";
   import axios from "axios";
   import { Button, Indicator, Modal, Spinner, Tooltip } from "flowbite-svelte";
   import { Embed, ScrollTo, Seat } from "$lib";
@@ -40,12 +43,12 @@
       resultModal = true;
       const id = $page.url.searchParams.get("sid");
       const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: "Bearer guest" },
+        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
       });
       const showingDate = await axios.get(
         `${PUBLIC_API_ENDPOINT}/showing/${id}`,
         {
-          headers: { Authorization: "Bearer guest" },
+          headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
         }
       );
       tickets = ticket.data;
@@ -57,12 +60,12 @@
       resultModal = true;
       const id = $page.url.searchParams.get("sid");
       const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: "Bearer guest" },
+        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
       });
       const showingDate = await axios.get(
         `${PUBLIC_API_ENDPOINT}/showing/${id}`,
         {
-          headers: { Authorization: "Bearer guest" },
+          headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
         }
       );
       tickets = ticket.data;
@@ -83,7 +86,7 @@
 
   let tickets: any[] = [];
   let showing: any;
-  let selected: String[] = [];
+  let selected = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
     sid = id;
@@ -93,13 +96,13 @@
     total = 0;
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: "Bearer guest" },
+        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
       })
       .then(async (res) => {
         tickets = res.data;
         await axios
           .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-            headers: { Authorization: "Bearer guest" },
+            headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
           })
           .then((res) => {
             showing = res.data.showingtime[0];
@@ -107,6 +110,7 @@
           });
       });
   };
+  let disabled = true;
 
   const select = (seatNumber: String) => {
     disabled = false;
@@ -221,8 +225,8 @@
 
 {#if showSeat}
   <main class=" z-10 mx-auto mt-20 container" id="seat">
-    <div class="flex justify-between gap-10">
-      <main class="bg-stone-950 px-10 py-10">
+    <div class="gap-10 grid grid-cols-1 2xl:grid-cols-3">
+      <main class="bg-stone-950 px-10 py-10 2xl:col-span-2">
         <div class="dark:text-white flex justify-center gap-10">
           <span class="flex items-center"
             ><Indicator size="sm" color="red" class="mr-1.5" />Unavailable</span
@@ -234,7 +238,7 @@
             ><Indicator size="sm" color="green" class="mr-1.5" />Selected</span
           >
         </div>
-        <div class="flex">
+        <div class="flex justify-center">
           <div
             class="grid w-5 dark:text-white my-5 justify-center items-center"
           >
@@ -287,7 +291,7 @@
         </div>
       </main>
       <aside
-        class="w-1/3 h-full outline rounded-lg dark:outline-slate-700 dark:text-white flex flex-col p-5 gap-5"
+        class=" h-full outline rounded-lg dark:outline-slate-700 dark:text-white flex flex-col p-5 gap-5"
       >
         <div class="flex gap-10">
           <img
@@ -347,10 +351,7 @@
           <input type="hidden" name="title" value={movie.title} />
           <input type="hidden" name="price" value={showing.price} />
           <div class="w-full grid">
-            <Button type="submit" pill>
-              <Spinner class="mr-3" size="4" />
-              Pay</Button
-            >
+            <Button type="submit" pill {disabled}>Pay</Button>
           </div>
         </form>
       </aside>
