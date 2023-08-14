@@ -77,6 +77,7 @@
   });
 
   const changeDate = () => {
+    sid = "";
     showSeat = false;
   };
 
