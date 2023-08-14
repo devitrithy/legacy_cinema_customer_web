@@ -16,18 +16,17 @@
       )
     );
   }
-  let nextDay = (day: Number) => {
+  const nextDay = (day: Number) => {
     return new Date(Date.now() + 3600 * 1000 * 24 * day);
   };
   export let data;
-  let loading = false;
+  let sid = $page.url.searchParams.get("sid");
   let locations: any;
   $: locations = data.locations;
   let location = false;
   let movie = data.movie.movie[0];
   let showSeat = false;
   let total: number = 0;
-  let disabled = false;
   let resultModal = false;
   let success = false;
   let resutlMessage = "";
@@ -56,6 +55,20 @@
     } else if ($page.url.searchParams.get("result") === "cancel") {
       success = false;
       resultModal = true;
+      const id = $page.url.searchParams.get("sid");
+      const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
+        headers: { Authorization: "Bearer guest" },
+      });
+      const showingDate = await axios.get(
+        `${PUBLIC_API_ENDPOINT}/showing/${id}`,
+        {
+          headers: { Authorization: "Bearer guest" },
+        }
+      );
+      tickets = ticket.data;
+      showing = showingDate.data.showingtime[0];
+      location = true;
+      showSeat = true;
       resutlMessage =
         "You just cancel the booking. Feel free to check more movie you want";
     } else {
@@ -72,6 +85,7 @@
   let selected: String[] = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
+    sid = id;
     selected = [];
     tickets = [];
 
@@ -186,7 +200,7 @@
             <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
               {#each hall.showing as showingTime}
                 <Button
-                  outline
+                  outline={sid !== showingTime.showing_id}
                   on:click={() => {
                     showingSeat(showingTime.showing_id);
                   }}
