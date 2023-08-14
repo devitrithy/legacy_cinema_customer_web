@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
   if (NODE_ENV === "development") {
     date = url.searchParams.get("day") || new Date().getDate();
   } else {
-    date = url.searchParams.get("day") || new Date().getDate() + 1;
+    date = url.searchParams.get("day") || new Date().getDate();
   }
   if (
     Number(date) < Number(new Date().getDate()) &&
