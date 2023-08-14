@@ -229,35 +229,23 @@
 {#if showSeat}
   <main class=" z-10 mx-auto mt-20 container" id="seat">
     <div class="gap-10 grid grid-cols-1 2xl:grid-cols-3">
-      <main class="bg-stone-950 px-10 py-10 2xl:col-span-2">
+      <main class="bg-stone-950 px-10 py-10 2xl:col-span-2 h-[47rem]">
+        <div class="dark:text-white flex justify-center gap-10">
+          <span class="flex items-center"
+            ><Indicator size="sm" color="red" class="mr-1.5" />Unavailable</span
+          >
+          <span class="flex items-center"
+            ><Indicator size="sm" color="gray" class="mr-1.5" />Available</span
+          >
+          <span class="flex items-center"
+            ><Indicator size="sm" color="green" class="mr-1.5" />Selected</span
+          >
+        </div>
         {#if loading}
           <div class="w-full h-full flex justify-center items-center">
             <Spinner color="gray" />
           </div>
         {:else}
-          <div class="dark:text-white flex justify-center gap-10">
-            <span class="flex items-center"
-              ><Indicator
-                size="sm"
-                color="red"
-                class="mr-1.5"
-              />Unavailable</span
-            >
-            <span class="flex items-center"
-              ><Indicator
-                size="sm"
-                color="gray"
-                class="mr-1.5"
-              />Available</span
-            >
-            <span class="flex items-center"
-              ><Indicator
-                size="sm"
-                color="green"
-                class="mr-1.5"
-              />Selected</span
-            >
-          </div>
           <div class="flex justify-center">
             <div
               class="grid w-5 dark:text-white my-5 justify-center items-center"
@@ -304,12 +292,12 @@
               <p>I</p>
             </div>
           </div>
-          <div
-            class="border dark:border-gray-600 h-16 mx-5 mt-10 flex justify-center items-center"
-          >
-            <h1 class="dark:text-white text-3xl">Screen</h1>
-          </div>
         {/if}
+        <div
+          class="border dark:border-gray-600 h-16 mx-5 mt-10 flex justify-center items-center"
+        >
+          <h1 class="dark:text-white text-3xl">Screen</h1>
+        </div>
       </main>
       <aside
         class=" h-full outline rounded-lg dark:outline-slate-700 dark:text-white flex flex-col p-5 gap-5"
