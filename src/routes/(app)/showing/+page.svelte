@@ -1,5 +1,6 @@
 <script lang="ts">
   import Card from "$lib/ui/card.svelte";
+  import moment from "moment-timezone";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -16,6 +17,9 @@
       <Card
         url={movie.poster.substring(8)}
         trailerLink={movie.trailer}
+        title={movie.title}
+        duration={`${movie.time} Minutes`}
+        release={moment(movie.create_at).tz("Atlatic/Reyvjik").format("LL")}
         id={movie.movie_id}
       />
     </div>

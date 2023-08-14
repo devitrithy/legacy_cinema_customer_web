@@ -163,7 +163,7 @@
 </div>
 {#if location}
   <div class="m-10" id="location">
-    <div class="flex justify-between">
+    <div class="flex justify-between flex-col md:flex-row gap-5">
       <p class="uppercase text-2xl font-bold">Location</p>
       <div>
         <Button
