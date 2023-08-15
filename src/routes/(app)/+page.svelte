@@ -1,5 +1,6 @@
 <script>
   import play from "../../lib/ui/play.png";
+  import moment from "moment-timezone";
   export let data;
   let movies = data.data.movies;
   let trailer = [];
@@ -51,6 +52,9 @@
   {#each commings as movie}
     <Card
       url={movie.poster.substring(8)}
+      title={movie.title}
+      release={moment(movie.create_at).format("LL")}
+      duration={`${movie.time} Minutes`}
       trailerLink={movie.trailer}
       id={movie.movie_id}
     />
@@ -67,14 +71,17 @@
   {#each movies as movie}
     <Card
       url={movie.poster.substring(8)}
+      title={movie.title}
+      release={moment(movie.create_at).format("LL")}
+      duration={`${movie.time} Minutes`}
       trailerLink={movie.trailer}
       id={movie.movie_id}
     />
   {/each}
 </div>
-<div on:click={() => (popupModal = false)}>
+<button on:click={() => (popupModal = false)}>
   <EmbedModal {popupModal} {trialerVideo} />
-</div>
+</button>
 
 <style>
   #style-1::-webkit-scrollbar {

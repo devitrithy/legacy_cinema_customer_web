@@ -69,6 +69,6 @@
   </div>
 </div>
 
-<div on:click={() => (popupModal = false)}>
+<button on:click={() => (popupModal = false)}>
   <EmbedModal {popupModal} {trialerVideo} />
-</div>
+</button>

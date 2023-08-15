@@ -11,6 +11,12 @@
   import { Embed, ScrollTo, Seat } from "$lib";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  function scrollTo() {
+    const targetElement = document.getElementById("seat");
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  }
   function convertTZ(date: Date) {
     return new Date(
       (typeof date === "string" ? new Date(date) : date).toLocaleString(
@@ -112,6 +118,7 @@
           });
       });
     loading = false;
+    scrollTo();
   };
   let disabled = true;
 
@@ -197,28 +204,30 @@
       {#each locations as location}
         <div class="dark:bg-slate-900 p-4 mb-4">
           {#each location.Halls as hall}
-            <div class="flex justify-between mx-2 my-5">
-              <h2 class="text-xl font-semibold mb-2 uppercase">
-                legacy cinema | {location.location_name}
-              </h2>
-              <h3 class="text-lg font-semibold mb-1 float-right underline">
-                {hall.hall_name}
-              </h3>
-            </div>
-            <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
-              {#each hall.showing as showingTime}
-                <Button
-                  outline={sid !== showingTime.showing_id}
-                  on:click={() => {
-                    showingSeat(showingTime.showing_id);
-                  }}
-                >
-                  {moment(showingTime.showing_date)
-                    .tz("Atlantic/Reykjavik")
-                    .format("LT")}
-                </Button>
-              {/each}
-            </div>
+            {#if hall.showing.length > 0}
+              <div class="flex justify-between mx-2 my-5">
+                <h2 class="text-xl font-semibold mb-2 uppercase">
+                  legacy cinema | {location.location_name}
+                </h2>
+                <h3 class="text-lg font-semibold mb-1 float-right underline">
+                  {hall.hall_name}
+                </h3>
+              </div>
+              <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
+                {#each hall.showing as showingTime}
+                  <Button
+                    outline={sid !== showingTime.showing_id}
+                    on:click={() => {
+                      showingSeat(showingTime.showing_id);
+                    }}
+                  >
+                    {moment(showingTime.showing_date)
+                      .tz("Atlantic/Reykjavik")
+                      .format("LT")}
+                  </Button>
+                {/each}
+              </div>
+            {/if}
           {/each}
         </div>
       {/each}
@@ -278,9 +287,9 @@
                   {#if seat.selected}
                     <Seat isAvailable={false} />
                   {:else}
-                    <div on:click={() => select(seat.seatNumber)}>
+                    <button on:click={() => select(seat.seatNumber)}>
                       <Seat />
-                    </div>
+                    </button>
                   {/if}
                 </div>
               {/each}
