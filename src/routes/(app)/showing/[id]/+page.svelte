@@ -2,6 +2,7 @@
   import moment from "moment-timezone";
   import checkMark from "./checked.png";
   import removeMark from "./remove.png";
+  import { browser } from "$app/environment";
   import {
     PUBLIC_API_ENDPOINT,
     PUBLIC_SECRET_GUEST_KEY,
@@ -11,6 +12,8 @@
   import { Embed, ScrollTo, Seat } from "$lib";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
+  import { redirectedFrom } from "$lib/stores/redirected";
   function scrollTo() {
     const targetElement = document.getElementById("seat");
     if (targetElement) {
@@ -40,10 +43,15 @@
   let resultModal = false;
   let success = false;
   let resutlMessage = "";
+  let { token } = data;
 
   onMount(async () => {
+    if ($page.url.searchParams.get("booking") === "1") {
+      location = true;
+    }
+
     if ($page.url.searchParams.get("result") === "success") {
-      // TODO: FIX THIS IF I HAVE TIME THE BUG IS ANYONE CAN ACCESS THIS ROUTE
+      // BUG: FIX THIS IF I HAVE TIME THE BUG IS ANYONE CAN ACCESS THIS ROUTE
       success = true;
       resutlMessage =
         "You booked the ticket successfully, Please tell the staff your name to recived the ticket.";
@@ -104,18 +112,21 @@
     total = 0;
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then(async (res) => {
         tickets = res.data;
         await axios
           .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-            headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+            headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             showing = res.data.showingtime[0];
             showSeat = true;
           });
+      })
+      .catch((err) => {
+        goto(`/login`);
       });
     loading = false;
     scrollTo();

@@ -60,7 +60,7 @@
           >info</a
         >
         <a
-          href={`/showing/booking/${id}`}
+          href={`/showing/${id}?booking=1`}
           class=" bottom-24 left-0 right-0 hidden group-hover:block bg-red-950 uppercase py-2 opacity-95 hover:opacity-100 rounded-md hover:bg-red-900 w-full text-center"
           >Booking</a
         >

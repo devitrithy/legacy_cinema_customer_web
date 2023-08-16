@@ -3,11 +3,13 @@ import { PUBLIC_API_ENDPOINT } from "$env/static/public";
 import axios from "axios";
 import type { PageServerLoad } from "./$types";
 import { error, type Actions, redirect } from "@sveltejs/kit";
+import { redirectedFrom } from "$lib/stores/redirected";
 
-export const load: PageServerLoad = async ({ params, url }) => {
+export const load: PageServerLoad = async ({ params, url, cookies }) => {
   const customHeaders = {
     Authorization: "Bearer guest",
   };
+  const token = cookies.get("token");
   let id = params.id;
   const movie = async () => {
     const res = await fetch(`${PUBLIC_API_ENDPOINT}/movie/` + id, {
@@ -46,13 +48,14 @@ export const load: PageServerLoad = async ({ params, url }) => {
   };
 
   return {
+    token: token,
     movie: movie(),
     locations: location(),
   };
 };
 
 export const actions: Actions = {
-  pay: async ({ request, params, url }) => {
+  pay: async ({ request, params, cookies }) => {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
@@ -69,11 +72,27 @@ export const actions: Actions = {
       },
     ];
     await axios
-      .post(`${PUBLIC_API_ENDPOINT}/stripe/checkout`, {
-        items,
-      })
+      .post(
+        `${PUBLIC_API_ENDPOINT}/stripe/checkout`,
+        {
+          items,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        }
+      )
       .then((data) => {
+        redirectedFrom.set("payment");
         throw redirect(303, data.data.url);
+      })
+      .catch((err) => {
+        if (err.status !== 303) {
+          throw redirect(303, "/login");
+        } else {
+          throw redirect(303, err.location);
+        }
       });
   },
 };

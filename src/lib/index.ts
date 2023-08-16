@@ -7,4 +7,5 @@ export { default as Card } from "./ui/card.svelte";
 export { default as EmbedModal } from "./ui/embedModal.svelte";
 export { default as List } from "./ui/list.svelte";
 export { default as Seat } from "./ui/seat.svelte";
+export { default as TextBox } from "./ui/textBox.svelte";
 export { default as ScrollTo } from "./ui/scrollto.svelte";

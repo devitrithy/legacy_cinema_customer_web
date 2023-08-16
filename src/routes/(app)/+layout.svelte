@@ -5,6 +5,7 @@
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  import { auth } from "$lib/stores/auth";
   let m = { x: 0, y: 0 };
   let isFooterVisible = true;
 
@@ -19,6 +20,15 @@
   }
 
   export let data;
+  const user = data.user;
+  auth.set({
+    user_id: user?.user_id,
+    username: user?.username,
+    profile: user?.profile,
+    firstname: user?.firstname,
+    email: user?.email,
+  });
+  console.log(user);
   let slideshows = data.data.slideshows;
   let images: { id: number; name: any; imgurl: string; attribution: any }[] =
     [];

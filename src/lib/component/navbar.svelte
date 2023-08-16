@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import src from "../../public/logo/Logo.png";
+  import { auth } from "$lib/stores/auth";
   import {
     Navbar,
     NavBrand,
@@ -13,7 +14,10 @@
     DropdownHeader,
     DropdownDivider,
     DarkMode,
+    Button,
   } from "flowbite-svelte";
+  import { PUBLIC_API_ENDPOINT } from "$env/static/public";
+  console.log($auth.user_id);
 </script>
 
 <Navbar let:hidden let:toggle class="z-50">
@@ -49,25 +53,24 @@
         >
       </svelte:fragment>
     </DarkMode>
+    {#if !$auth.username}
+      <Button href="/login">Login</Button>
+      <Button href="/register">Register</Button>
+    {:else}
+      <Avatar
+        id="avatar-menu"
+        src={`${PUBLIC_API_ENDPOINT}/thumbnail/${$auth.profile?.substring(
+          8
+        )}?w=25&h=25`}
+      />
+    {/if}
     <!-- <Avatar id="avatar-menu" src="/images/profile-picture-3.webp" /> -->
     <NavHamburger
       on:click={toggle}
       class1="w-full md:flex md:w-auto md:order-1"
     />
   </div>
-  <Dropdown placement="bottom" triggeredBy="#avatar-menu">
-    <DropdownHeader>
-      <span class="block text-sm"> Bonnie Green </span>
-      <span class="block truncate text-sm font-medium">
-        name@flowbite.com
-      </span>
-    </DropdownHeader>
-    <DropdownItem>Dashboard</DropdownItem>
-    <DropdownItem>Settings</DropdownItem>
-    <DropdownItem>Earnings</DropdownItem>
-    <DropdownDivider />
-    <DropdownItem>Sign out</DropdownItem>
-  </Dropdown>
+
   <NavUl {hidden}>
     <NavLi
       href="/"
@@ -96,3 +99,16 @@
     >
   </NavUl>
 </Navbar>
+
+<Dropdown placement="bottom" triggeredBy="#avatar-menu">
+  <DropdownHeader>
+    <span class="block text-sm">{$auth.firstname}</span>
+    <span class="block truncate text-sm font-medium">{$auth.email}</span>
+  </DropdownHeader>
+  <DropdownItem>Favorite</DropdownItem>
+  <DropdownItem>History</DropdownItem>
+  <DropdownItem>Booked</DropdownItem>
+  <DropdownItem>Settings</DropdownItem>
+  <DropdownDivider />
+  <DropdownItem href="/logout">Sign Out</DropdownItem>
+</Dropdown>

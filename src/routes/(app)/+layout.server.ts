@@ -1,7 +1,7 @@
 import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-import type { LayoutLoad } from "./$types";
+import type { LayoutServerLoad } from "./$types";
 
-export const load: LayoutLoad = async ({ url, setHeaders }) => {
+export const load: LayoutServerLoad = async ({ url, setHeaders, locals }) => {
   const customHeaders = {
     Authorization: "Bearer guest",
   };
@@ -12,6 +12,6 @@ export const load: LayoutLoad = async ({ url, setHeaders }) => {
       });
       return data.json();
     };
-    return { data: data() };
+    return { data: data(), user: locals.user };
   } catch (error) {}
 };
