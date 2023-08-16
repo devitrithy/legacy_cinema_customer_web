@@ -14,6 +14,7 @@ declare global {
     // interface Error {}
     interface Locals {
       user: User | null;
+      payment: String;
     }
     // interface PageData {}
     // interface Platform {}

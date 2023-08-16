@@ -3,13 +3,18 @@ import { PUBLIC_API_ENDPOINT } from "$env/static/public";
 import axios from "axios";
 import type { PageServerLoad } from "./$types";
 import { error, type Actions, redirect } from "@sveltejs/kit";
-import { redirectedFrom } from "$lib/stores/redirected";
 
-export const load: PageServerLoad = async ({ params, url, cookies }) => {
+export const load: PageServerLoad = async ({
+  params,
+  url,
+  cookies,
+  locals,
+}) => {
   const customHeaders = {
     Authorization: "Bearer guest",
   };
   const token = cookies.get("token");
+  console.log(locals.payment);
   let id = params.id;
   const movie = async () => {
     const res = await fetch(`${PUBLIC_API_ENDPOINT}/movie/` + id, {
@@ -55,13 +60,14 @@ export const load: PageServerLoad = async ({ params, url, cookies }) => {
 };
 
 export const actions: Actions = {
-  pay: async ({ request, params, cookies }) => {
+  pay: async ({ request, params, cookies, locals }) => {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
     let items = [
       {
         day: p.get("date") || new Date().getDate(),
+        uid: locals.user?.user_id,
         mid: params.id,
         seats: p.get("pay"),
         sid: p.get("sid"),
@@ -84,7 +90,6 @@ export const actions: Actions = {
         }
       )
       .then((data) => {
-        redirectedFrom.set("payment");
         throw redirect(303, data.data.url);
       })
       .catch((err) => {

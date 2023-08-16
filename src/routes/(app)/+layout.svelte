@@ -12,7 +12,7 @@
   function handleMove(event) {
     m.x = event.clientX;
     m.y = event.clientY;
-    if (m.y > 800) {
+    if (m.y > 700) {
       isFooterVisible = true;
     } else {
       isFooterVisible = false;
@@ -28,7 +28,6 @@
     firstname: user?.firstname,
     email: user?.email,
   });
-  console.log(user);
   let slideshows = data.data.slideshows;
   let images: { id: number; name: any; imgurl: string; attribution: any }[] =
     [];
@@ -65,7 +64,7 @@
 <div class="fixed top-0 right-0 left-0 z-50">
   <Navbar />
 </div>
-<div class="pt-[70px]">
+<div class="pt-[55px] md:pt-[65px]">
   {#if $page.url.pathname === "/"}
     <Slideshow {images} />
   {/if}

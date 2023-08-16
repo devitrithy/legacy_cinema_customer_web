@@ -4,9 +4,10 @@
 </script>
 
 <Carousel
+  divClass="!rounded-none"
   {images}
   showThumbs={false}
-  showIndicators={true}
+  showIndicators={false}
   slideControls={true}
   showCaptions={false}
   loop

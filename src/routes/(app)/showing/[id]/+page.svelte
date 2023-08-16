@@ -2,18 +2,18 @@
   import moment from "moment-timezone";
   import checkMark from "./checked.png";
   import removeMark from "./remove.png";
-  import { browser } from "$app/environment";
-  import {
-    PUBLIC_API_ENDPOINT,
-    PUBLIC_SECRET_GUEST_KEY,
-  } from "$env/static/public";
+  import { PUBLIC_API_ENDPOINT } from "$env/static/public";
   import axios from "axios";
   import { Button, Indicator, Modal, Spinner, Tooltip } from "flowbite-svelte";
   import { Embed, ScrollTo, Seat } from "$lib";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { redirectedFrom } from "$lib/stores/redirected";
+  import {
+    CalendarMonthOutline,
+    ClockOutline,
+    TagOutline,
+  } from "flowbite-svelte-icons";
   function scrollTo() {
     const targetElement = document.getElementById("seat");
     if (targetElement) {
@@ -44,12 +44,9 @@
   let success = false;
   let resutlMessage = "";
   let { token } = data;
+  let tkn = $page.url.searchParams.get("tkn");
 
   onMount(async () => {
-    if ($page.url.searchParams.get("booking") === "1") {
-      location = true;
-    }
-
     if ($page.url.searchParams.get("result") === "success") {
       // BUG: FIX THIS IF I HAVE TIME THE BUG IS ANYONE CAN ACCESS THIS ROUTE
       success = true;
@@ -58,12 +55,12 @@
       resultModal = true;
       const id = $page.url.searchParams.get("sid");
       const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+        headers: { Authorization: `Bearer ${tkn}` },
       });
       const showingDate = await axios.get(
         `${PUBLIC_API_ENDPOINT}/showing/${id}`,
         {
-          headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+          headers: { Authorization: `Bearer ${tkn}` },
         }
       );
       tickets = ticket.data;
@@ -75,12 +72,12 @@
       resultModal = true;
       const id = $page.url.searchParams.get("sid");
       const ticket = await axios.get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+        headers: { Authorization: `Bearer ${tkn}` },
       });
       const showingDate = await axios.get(
         `${PUBLIC_API_ENDPOINT}/showing/${id}`,
         {
-          headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
+          headers: { Authorization: `Bearer ${tkn}` },
         }
       );
       tickets = ticket.data;
@@ -90,7 +87,9 @@
       resutlMessage =
         "You just cancel the booking. Feel free to check more movie you want";
     } else {
-      //
+      if ($page.url.searchParams.get("booking") === "1") {
+        location = true;
+      }
     }
   });
 
@@ -112,13 +111,13 @@
     total = 0;
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/ticket/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token || tkn}` },
       })
       .then(async (res) => {
         tickets = res.data;
         await axios
           .get(`${PUBLIC_API_ENDPOINT}/showing/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token || tkn}` },
           })
           .then((res) => {
             showing = res.data.showingtime[0];
@@ -169,12 +168,19 @@
       >
     </div>
     <p class="flex items-center gap-5">
+      <span><CalendarMonthOutline /> </span>
       {moment(movie.create_at, ["YYYY-MM-DD", "DD-MM-YYYY"]).format(
         "DD MMMM YYYY"
       )}
     </p>
-    <p class="flex items-center gap-5">{movie.time}</p>
-    <p class="flex items-center gap-5">{movie.genre}</p>
+    <p class="flex items-center gap-5">
+      <span><ClockOutline /></span>
+      {movie.time} Minutes
+    </p>
+    <p class="flex items-center gap-5">
+      <span><TagOutline /></span>
+      {movie.genre}
+    </p>
     <p class="w-[50vw]">{movie.description}</p>
     <Embed url={movie.trailer} auto={true} />
   </div>
@@ -252,7 +258,9 @@
       <main
         class="bg-stone-950 px-10 py-10 2xl:col-span-2 h-[30rem] md:h-[38rem] lg:h-[47rem] flex flex-col"
       >
-        <div class="dark:text-white flex justify-center gap-10 order-first">
+        <div
+          class="dark:text-white flex justify-center gap-10 order-first text-white"
+        >
           <span class="flex items-center"
             ><Indicator size="sm" color="red" class="mr-1.5" />Unavailable</span
           >
@@ -266,7 +274,7 @@
         <div
           class="border dark:border-gray-600 h-16 mx-5 mt-10 flex justify-center items-center order-last"
         >
-          <h1 class="dark:text-white text-3xl">Screen</h1>
+          <h1 class="text-white text-3xl">Screen</h1>
         </div>
         {#if loading}
           <div class="w-full h-full flex justify-center items-center">
@@ -275,7 +283,7 @@
         {:else}
           <div class="flex justify-center h-full w-full">
             <div
-              class="grid w-5 dark:text-white my-5 justify-center items-center"
+              class="grid w-5 dark:text-white my-5 justify-center items-center text-white"
             >
               <p>A</p>
               <p>B</p>
@@ -306,7 +314,7 @@
               {/each}
             </div>
             <div
-              class="grid w-5 dark:text-white my-5 justify-center items-center"
+              class="grid w-5 dark:text-white my-5 justify-center items-center text-white"
             >
               <p>A</p>
               <p>B</p>
@@ -401,5 +409,14 @@
     <h3 class="m-5 text-lg font-normal text-gray-500 dark:text-gray-400">
       {resutlMessage}
     </h3>
+    <div class="flex gap-5">
+      <Button
+        outline
+        on:click={() => {
+          scrollTo();
+        }}>Close</Button
+      >
+      <Button color="green" outline href="/booked">See Ticket</Button>
+    </div>
   </div>
 </Modal>

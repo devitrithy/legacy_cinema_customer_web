@@ -2,7 +2,7 @@ import pkg from "jsonwebtoken";
 const { verify } = pkg;
 
 export const auth = (event) => {
-  const token = event.cookies.get("token");
+  const token = event.cookies.get("token") || event.url.searchParams.get("tkn");
   if (token) {
     let user = verify(token, "anh thunh jm aii");
     return {
