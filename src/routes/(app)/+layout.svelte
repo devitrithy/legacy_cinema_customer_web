@@ -37,7 +37,7 @@
       name: slideshows[i].title,
       imgurl: `${PUBLIC_API_ENDPOINT}/thumbnail/${slideshows[
         i
-      ].poster.substring(8)}?w=1900&h=400`,
+      ].poster.substring(8)}?w=1900&h=350`,
       attribution: slideshows[i].title,
     });
   }
