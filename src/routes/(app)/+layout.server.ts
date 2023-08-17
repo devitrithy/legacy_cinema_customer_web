@@ -1,4 +1,3 @@
-export const prerender = true;
 import { PUBLIC_API_ENDPOINT } from "$env/static/public";
 import type { LayoutServerLoad } from "./$types";
 
