@@ -7,6 +7,7 @@
   let commings = [];
   import Card from "$lib/ui/card.svelte";
   import { EmbedModal } from "$lib";
+  import { slideshowStore } from "$lib/stores/slideshow";
   for (let i = 0; i < 10; i++) {
     trailer.push(movies[i + 6].trailer);
   }
@@ -19,6 +20,7 @@
     popupModal = true;
     trialerVideo = vid;
   };
+  slideshowStore.set(data.slideshow);
 </script>
 
 <title>Legacy Cinema | Home</title>

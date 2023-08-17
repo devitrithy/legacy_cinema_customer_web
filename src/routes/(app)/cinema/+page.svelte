@@ -2,10 +2,22 @@
   import { Button, Search } from "flowbite-svelte";
   import src from "../../../public/cinemas.webp";
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
+  import { createSearchStore, searchHandler } from "$lib/stores/search";
+  import { onDestroy } from "svelte";
   export let data;
   let { cinemas } = data;
-  console.log(cinemas);
-  let search: String = "";
+  let searchCinemas = cinemas.locations.map((c: any) => ({
+    ...c,
+    searchTerms: `${c.location_name} ${c.address}`,
+  }));
+
+  const searchStore = createSearchStore(searchCinemas);
+
+  const unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <title>Legacy Cinema | Cinemas</title>
@@ -16,10 +28,10 @@
   <div class="flex mt-72 lg:mx-52 flex-col gap-4">
     <div class="flex flex-col gap-4">
       <p class="text-4xl md:text-5xl uppercase font-bold">
-        {cinemas.locations[1].location_name}
+        {$searchStore.data[1].location_name}
       </p>
       <p class="">
-        {cinemas.locations[1].address}
+        {$searchStore.data[1].address}
       </p>
     </div>
     <div class="">
@@ -30,10 +42,14 @@
 </div>
 <main class="mt-[360px]">
   <div class="flex gap-5">
-    <Search size="lg" placeholder="Search the cinemas..." bind:value={search} />
+    <Search
+      size="lg"
+      placeholder="Search the cinemas..."
+      bind:value={$searchStore.search}
+    />
     <Button>Search</Button>
   </div>
-  {#each cinemas.locations as location}
+  {#each $searchStore.filtered as location}
     <div class="flex mt-10 gap-10">
       <img
         src={`${PUBLIC_API_ENDPOINT}/thumbnail/logo.jpg?h=150&w=300`}

@@ -17,7 +17,6 @@
     Button,
   } from "flowbite-svelte";
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-  console.log($auth.user_id);
 </script>
 
 <Navbar let:hidden let:toggle class="z-50">
@@ -88,14 +87,14 @@
       data-sveltekit-prefetch>Cinemas</NavLi
     >
     <NavLi
-      href="/aboutus"
-      active={$page.url.pathname === "/aboutus" ? true : false}
-      data-sveltekit-prefetch>About Us</NavLi
+      href="/promotion"
+      active={$page.url.pathname === "/promotion" ? true : false}
+      data-sveltekit-prefetch>Promotion</NavLi
     >
     <NavLi
-      href="/favorite"
-      active={$page.url.pathname === "/favorite" ? true : false}
-      data-sveltekit-prefetch>Favorite</NavLi
+      href="/booking"
+      active={$page.url.pathname === "/booking" ? true : false}
+      data-sveltekit-prefetch>Booking</NavLi
     >
   </NavUl>
 </Navbar>

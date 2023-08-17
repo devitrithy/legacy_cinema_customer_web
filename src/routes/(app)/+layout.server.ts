@@ -10,6 +10,7 @@ export const load: LayoutServerLoad = async ({ url, setHeaders, locals }) => {
       const data = await fetch(`${PUBLIC_API_ENDPOINT}/slideshow`, {
         headers: customHeaders,
       });
+      setHeaders("cache-control", "maxage=3600");
       return data.json();
     };
     return { data: data(), user: locals.user };
