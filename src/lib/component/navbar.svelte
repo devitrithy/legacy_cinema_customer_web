@@ -107,7 +107,7 @@
   </DropdownHeader>
   <DropdownItem>Favorite</DropdownItem>
   <DropdownItem>History</DropdownItem>
-  <DropdownItem>Booked</DropdownItem>
+  <DropdownItem href="booking">Booked</DropdownItem>
   <DropdownItem>Settings</DropdownItem>
   <DropdownDivider />
   <DropdownItem href="/logout">Sign Out</DropdownItem>
