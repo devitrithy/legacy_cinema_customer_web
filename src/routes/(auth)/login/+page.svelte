@@ -2,6 +2,7 @@
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
   import {
     Button,
+    Checkbox,
     DarkMode,
     FloatingLabelInput,
     Helper,
@@ -111,6 +112,12 @@
     {#if iMessage !== ""}
       <small class="text-red-700">{iMessage}</small>
     {/if}
+    <Checkbox>Keep me login</Checkbox>
     <Button type="submit">Login</Button>
+    <p class="text-center">
+      You don't have account? <a href="/register" class="text-primary-700"
+        >Sign Up</a
+      >
+    </p>
   </form>
 </main>

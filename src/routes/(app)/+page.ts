@@ -1,3 +1,4 @@
+export const prerender = true;
 import {
   PUBLIC_API_ENDPOINT,
   PUBLIC_SECRET_GUEST_KEY,

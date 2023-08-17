@@ -1,3 +1,4 @@
+export const prerender = true;
 import { NODE_ENV } from "$env/static/private";
 import { PUBLIC_API_ENDPOINT } from "$env/static/public";
 import axios from "axios";
