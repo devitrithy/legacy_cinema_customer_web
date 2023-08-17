@@ -416,7 +416,7 @@
           scrollTo();
         }}>Close</Button
       >
-      <Button color="green" outline href="/booked">See Ticket</Button>
+      <Button color="green" outline href="/booking">See Ticket</Button>
     </div>
   </div>
 </Modal>
