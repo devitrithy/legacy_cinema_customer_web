@@ -35,7 +35,9 @@
     images.push({
       id: i,
       name: slideshows[i].title,
-      imgurl: `${PUBLIC_API_ENDPOINT}/${slideshows[i].poster}`,
+      imgurl: `${PUBLIC_API_ENDPOINT}/thumbnail/${slideshows[
+        i
+      ].poster.substring(8)}?w=1900&h=400`,
       attribution: slideshows[i].title,
     });
   }
