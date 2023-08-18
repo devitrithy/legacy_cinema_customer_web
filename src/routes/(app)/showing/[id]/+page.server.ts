@@ -60,12 +60,13 @@ export const load: PageServerLoad = async ({
 };
 
 export const actions: Actions = {
-  pay: async ({ request, params, cookies, locals }) => {
+  pay: async ({ request, params, cookies, locals, url }) => {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
     let items = [
       {
+        origin: url.origin,
         day: p.get("date") || new Date().getDate(),
         uid: locals.user?.user_id,
         mid: params.id,
@@ -77,6 +78,7 @@ export const actions: Actions = {
         price: p.get("price"),
       },
     ];
+    console.log(items[0].origin);
     await axios
       .post(
         `${PUBLIC_API_ENDPOINT}/stripe/checkout`,

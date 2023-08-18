@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
   const token = cookies.get("token");
   const booked = async () => {
     const res = await fetch(
-      `${PUBLIC_API_ENDPOINT}/ticket/booking/${locals.user?.user_id}`,
+      `${PUBLIC_API_ENDPOINT}/booking/${locals.user?.user_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

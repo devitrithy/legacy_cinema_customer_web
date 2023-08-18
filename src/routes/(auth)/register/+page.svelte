@@ -54,6 +54,7 @@
     }
   };
   let hide = true;
+  //TODO: Make sure that email and username not duplicate
   const login: SubmitFunction = ({ form, data, cancel, action }) => {
     const { username, password, firstname, lastname, email, confirmPassword } =
       Object.fromEntries(data);
@@ -87,8 +88,8 @@
       cancel();
     }
 
-    return async ({ result, update }) => {
-      console.log(result.type);
+    return async ({ result }) => {
+      console.log(result.status);
       switch (result.type) {
         case "success":
           if ($page.url.searchParams.get("r")) {

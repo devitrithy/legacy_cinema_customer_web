@@ -11,8 +11,8 @@ export const actions: Actions = {
         return;
       }
     } catch (err) {
-      console.log(err.response.status);
-      throw fail(409, { message: err.data.message });
+      console.log(err);
+      return fail(err.response.status, { message: err.data.message });
     }
   },
 };
