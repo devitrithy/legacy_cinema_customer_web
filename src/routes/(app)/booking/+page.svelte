@@ -19,14 +19,14 @@
       {#each booking.booked as ticket}
         <p>{ticket.Showingtime.movie.title}</p>
         <li class="bg-slate-700 p-4 rounded shadow">
-          <div class="flex items-center">
+          <div class="flex items-start">
             <div class="flex-1">
               <p class="text-lg font-semibold mb-2">
                 Movie: {ticket.Showingtime.movie.title} | {ticket.Showingtime
                   .hall.location.location_name} | {ticket.Showingtime.hall
                   .hall_name}
               </p>
-              <p>
+              <p class="mb-5">
                 Date: {moment(ticket.Showingtime.showing_date)
                   .tz("Atlantic/Reykjavik")
                   .format("LL")}, Time: {moment(ticket.Showingtime.showing_date)
@@ -35,12 +35,16 @@
               </p>
               <div class="flex gap-5 flex-wrap">
                 {#each ticket.TicketDetails as td}
-                  <p>Seat: {td.seat}</p>
+                  <p
+                    class="py-1 px-3 bg-gray-400 text-black rounded-lg w-14 text-center"
+                  >
+                    {td.seat}
+                  </p>
                 {/each}
               </div>
             </div>
             <div>
-              <Badge color="green" border>
+              <Badge color="yellow" border>
                 <ClockOutline />
                 <span class="ml-3"
                   >{moment(ticket.create_at)

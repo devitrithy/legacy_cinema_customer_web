@@ -1,5 +1,5 @@
 import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-import { error, type Actions, fail } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import axios from "axios";
 
 export const actions: Actions = {

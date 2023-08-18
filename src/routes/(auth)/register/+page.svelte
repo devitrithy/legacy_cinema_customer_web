@@ -88,7 +88,7 @@
     }
 
     return async ({ result, update }) => {
-      console.log(result.status);
+      console.log(result.type);
       switch (result.type) {
         case "success":
           if ($page.url.searchParams.get("r")) {
