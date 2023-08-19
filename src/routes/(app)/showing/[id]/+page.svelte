@@ -386,6 +386,7 @@
         <h1><span class="font-bold text-xl">Total ${total}</span></h1>
         <form action="?/pay" method="post">
           <input type="hidden" name="pay" bind:value={selected} />
+          <input type="hidden" name="price_id" bind:value={movie.price_id} />
           <input
             type="hidden"
             name="date"

@@ -64,6 +64,7 @@ export const actions: Actions = {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
+    console.log(p.get("price_id"));
     let items = [
       {
         origin: url.origin,
@@ -72,13 +73,12 @@ export const actions: Actions = {
         mid: params.id,
         seats: p.get("pay"),
         sid: p.get("sid"),
-        id: "price_1NeUShLmuduO7w8mjnb65Xlh",
+        id: p.get("price_id"),
         title: p.get("title"),
         qty: seats?.length,
         price: p.get("price"),
       },
     ];
-    console.log(items[0].origin);
     await axios
       .post(
         `${PUBLIC_API_ENDPOINT}/stripe/checkout`,
