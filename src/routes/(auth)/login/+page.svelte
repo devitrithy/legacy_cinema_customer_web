@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-  import { Button, Checkbox, DarkMode, Spinner } from "flowbite-svelte";
+  import { Button, Checkbox, DarkMode, Spinner, Toggle } from "flowbite-svelte";
   import type { PageData } from "./$types";
   import TextBox from "$lib/ui/textBox.svelte";
   import { enhance } from "$app/forms";
@@ -110,7 +110,12 @@
     {#if iMessage !== ""}
       <small class="text-red-700">{iMessage}</small>
     {/if}
-    <Checkbox>Keep me login</Checkbox>
+    <Toggle
+      checked={!hide}
+      on:click={() => {
+        hide = !hide;
+      }}>Show Password</Toggle
+    >
     {#if loading}
       <Button type="submit"><Spinner size="4" /></Button>
     {:else}

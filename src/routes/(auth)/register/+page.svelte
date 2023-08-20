@@ -2,10 +2,10 @@
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
   import {
     Button,
-    Checkbox,
     DarkMode,
     Fileupload,
-    Label,
+    Spinner,
+    Toggle,
   } from "flowbite-svelte";
   import type { PageData } from "./$types";
   import TextBox from "$lib/ui/textBox.svelte";
@@ -16,6 +16,7 @@
   import axios from "axios";
   let iMessage = "";
   let loading = false;
+  let show = false;
 
   export let data: PageData;
   let u = {
@@ -85,11 +86,19 @@
       loading = false;
       cancel();
     }
-    if (password !== confirmPassword) {
-      cp.result = 2;
-      cp.message = "Password don't match";
-      loading = false;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password.toString())) {
+      p.result = 2;
+      p.message = "Password is not string engough!";
       cancel();
+    } else {
+      if (password !== confirmPassword) {
+        cp.result = 2;
+        cp.message = "Password don't match";
+        loading = false;
+        cancel();
+      }
     }
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/user/email/${email}`)
@@ -210,11 +219,22 @@
         success={cp.result}
       />
     </div>
+    <Toggle
+      checked={!hide}
+      on:click={() => {
+        hide = !hide;
+      }}>Show Password</Toggle
+    >
+
     <Fileupload name="profile" accept="image/jpeg" />
     {#if iMessage !== ""}
       <small class="text-red-700">{iMessage}</small>
     {/if}
-    <Button type="submit">Sign Up</Button>
+    {#if loading}
+      <Button type="submit"><Spinner size="6" /></Button>
+    {:else}
+      <Button type="submit">Sign Up</Button>
+    {/if}
     <p class="text-center">
       Already have account? <a href="/login" class="text-primary-700">Sign In</a
       >
