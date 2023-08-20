@@ -14,7 +14,11 @@
         <p>{location.address}</p>
       </div>
       <div class="flex gap-5 mt-5">
-        <Button outline color="red">Show Time</Button>
+        <Button
+          outline
+          color="red"
+          href={`/showtime?cinema=${location.location_id}`}>Show Time</Button
+        >
       </div>
     </div>
   </div>

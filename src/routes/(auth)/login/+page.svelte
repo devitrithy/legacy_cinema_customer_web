@@ -117,7 +117,7 @@
       }}>Show Password</Toggle
     >
     {#if loading}
-      <Button type="submit"><Spinner size="4" /></Button>
+      <Button type="submit"><Spinner color="gray" size="4" /></Button>
     {:else}
       <Button type="submit">Login</Button>
     {/if}

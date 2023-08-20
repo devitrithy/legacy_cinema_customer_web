@@ -231,7 +231,7 @@
       <small class="text-red-700">{iMessage}</small>
     {/if}
     {#if loading}
-      <Button type="submit"><Spinner size="6" /></Button>
+      <Button type="submit"><Spinner color="gray" size="6" /></Button>
     {:else}
       <Button type="submit">Sign Up</Button>
     {/if}

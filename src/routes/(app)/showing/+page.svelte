@@ -44,7 +44,7 @@
         trailerLink={movie.trailer}
         title={movie.title}
         duration={`${movie.time} Minutes`}
-        release={moment(movie.create_at).tz("Atlatic/Reyvjik").format("LL")}
+        release={moment(movie.create_at).tz("Atlatic/Reykjavik").format("LL")}
         id={movie.movie_id}
       />
     </div>

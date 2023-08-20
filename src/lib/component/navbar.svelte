@@ -87,11 +87,6 @@
       data-sveltekit-prefetch>Cinemas</NavLi
     >
     <NavLi
-      href="/promotion"
-      active={$page.url.pathname === "/promotion" ? true : false}
-      data-sveltekit-prefetch>Promotion</NavLi
-    >
-    <NavLi
       href="/booking"
       active={$page.url.pathname === "/booking" ? true : false}
       data-sveltekit-prefetch>Booking</NavLi
