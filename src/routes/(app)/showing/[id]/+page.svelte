@@ -45,6 +45,7 @@
   let resutlMessage = "";
   let { token } = data;
   let tkn = $page.url.searchParams.get("tkn");
+  console.log(data.locations);
 
   onMount(async () => {
     if ($page.url.searchParams.get("result") === "success") {
@@ -221,7 +222,7 @@
       {#each locations as location}
         <div class="dark:bg-slate-900 p-4 mb-4">
           {#each location.Halls as hall}
-            {#if hall.showing.length > 0}
+            {#if hall.showing.length}
               <div class="flex justify-between mx-2 my-5">
                 <h2 class="text-xl font-semibold mb-2 uppercase">
                   legacy cinema | {location.location_name}
@@ -232,16 +233,18 @@
               </div>
               <div class="dark:bg-slate-900 p-2 mb-2 flex flex-wrap gap-4">
                 {#each hall.showing as showingTime}
-                  <Button
-                    outline={sid !== showingTime.showing_id}
-                    on:click={() => {
-                      showingSeat(showingTime.showing_id);
-                    }}
-                  >
-                    {moment(showingTime.showing_date)
-                      .tz("Atlantic/Reykjavik")
-                      .format("LT")}
-                  </Button>
+                  {#if showingTime.movie_id === movie.movie_id}
+                    <Button
+                      outline={sid !== showingTime.showing_id}
+                      on:click={() => {
+                        showingSeat(showingTime.showing_id);
+                      }}
+                    >
+                      {moment(showingTime.showing_date)
+                        .tz("Atlantic/Reykjavik")
+                        .format("LT")}
+                    </Button>
+                  {/if}
                 {/each}
               </div>
             {/if}
@@ -387,6 +390,7 @@
         <form action="?/pay" method="post">
           <input type="hidden" name="pay" bind:value={selected} />
           <input type="hidden" name="price_id" bind:value={movie.price_id} />
+          <input type="hidden" name="genre" bind:value={movie.genre} />
           <input
             type="hidden"
             name="date"

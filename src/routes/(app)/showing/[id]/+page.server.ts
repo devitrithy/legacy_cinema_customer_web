@@ -14,7 +14,6 @@ export const load: PageServerLoad = async ({
     Authorization: "Bearer guest",
   };
   const token = cookies.get("token");
-  console.log(locals.payment);
   let id = params.id;
   const movie = async () => {
     const res = await fetch(`${PUBLIC_API_ENDPOINT}/movie/` + id, {
@@ -67,6 +66,7 @@ export const actions: Actions = {
     console.log(p.get("price_id"));
     let items = [
       {
+        genre: p.get("genre"),
         origin: url.origin,
         day: p.get("date") || new Date().getDate(),
         uid: locals.user?.user_id,

@@ -1,12 +1,6 @@
 <script lang="ts">
   import { PUBLIC_API_ENDPOINT } from "$env/static/public";
-  import {
-    Button,
-    Checkbox,
-    DarkMode,
-    FloatingLabelInput,
-    Helper,
-  } from "flowbite-svelte";
+  import { Button, Checkbox, DarkMode, Spinner } from "flowbite-svelte";
   import type { PageData } from "./$types";
   import TextBox from "$lib/ui/textBox.svelte";
   import { enhance } from "$app/forms";
@@ -14,6 +8,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   let iMessage = "";
+  let loading = false;
 
   export let data: PageData;
   let inputText = {
@@ -27,10 +22,11 @@
   let hide = true;
   const login: SubmitFunction = ({ form, data, cancel, action }) => {
     const { username, password } = Object.fromEntries(data);
-    console.log(password);
+    loading = true;
     if (password.length < 1) {
       inputText.pMessage = "Please input the password";
       inputText.pResult = 2;
+      loading = false;
       cancel();
     } else {
       inputText.pMessage = "Password Validated";
@@ -39,6 +35,7 @@
     if (password.length < 1) {
       inputText.uMessage = "Please input the password";
       inputText.uResult = 2;
+      loading = false;
       cancel();
     } else {
       inputText.uMessage = "Username Validated";
@@ -63,6 +60,7 @@
           inputText.pMessage = "";
           inputText.uMessage = "";
           iMessage = "Please check your username and password again!";
+          loading = false;
           break;
 
         default:
@@ -113,7 +111,11 @@
       <small class="text-red-700">{iMessage}</small>
     {/if}
     <Checkbox>Keep me login</Checkbox>
-    <Button type="submit">Login</Button>
+    {#if loading}
+      <Button type="submit"><Spinner size="4" /></Button>
+    {:else}
+      <Button type="submit">Login</Button>
+    {/if}
     <p class="text-center">
       You don't have account? <a href="/register" class="text-primary-700"
         >Sign Up</a

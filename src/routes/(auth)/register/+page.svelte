@@ -13,7 +13,9 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import axios from "axios";
   let iMessage = "";
+  let loading = false;
 
   export let data: PageData;
   let u = {
@@ -55,11 +57,11 @@
   };
   let hide = true;
   //TODO: Make sure that email and username not duplicate
-  const login: SubmitFunction = ({ form, data, cancel, action }) => {
+  const login: SubmitFunction = async ({ form, data, cancel, action }) => {
     const { username, password, firstname, lastname, email, confirmPassword } =
       Object.fromEntries(data);
 
-    console.log(firstname);
+    loading = true;
     p.message = checkLength(password, "Password").message;
     p.result = checkLength(password, "Password").result;
     cp.message = checkLength(confirmPassword, "Confirm Password").message;
@@ -80,13 +82,37 @@
       fn.result === 2 ||
       ln.result === 2
     ) {
+      loading = false;
       cancel();
     }
     if (password !== confirmPassword) {
       cp.result = 2;
       cp.message = "Password don't match";
+      loading = false;
       cancel();
     }
+    await axios
+      .get(`${PUBLIC_API_ENDPOINT}/user/email/${email}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.available === 1) {
+          em.result = 2;
+          em.message = "Email already exist! Plaese try another one.";
+          loading = false;
+          cancel();
+        }
+      });
+    await axios
+      .get(`${PUBLIC_API_ENDPOINT}/user/username/${username}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.available === 1) {
+          u.result = 2;
+          u.message = "Username already exist! Plaese try another one.";
+          loading = false;
+          cancel();
+        }
+      });
 
     return async ({ result }) => {
       console.log(result.status);
@@ -105,6 +131,7 @@
           break;
 
         default:
+          loading = false;
           break;
       }
     };
