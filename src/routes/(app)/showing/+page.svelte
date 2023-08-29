@@ -7,7 +7,7 @@
   import { Search, Button } from "flowbite-svelte";
 
   export let data: PageData;
-  let movies = data.data.movies;
+  let movies = data.data;
 
   let searchMovie = movies.map((c: any) => ({
     ...c,
@@ -44,7 +44,7 @@
         trailerLink={movie.trailer}
         title={movie.title}
         duration={`${movie.time} Minutes`}
-        release={moment(movie.create_at).tz("Atlatic/Reykjavik").format("LL")}
+        release={moment(movie.create_at).tz("Atlantic/Reykjavik").format("LL")}
         id={movie.movie_id}
       />
     </div>

@@ -4,6 +4,7 @@
     Button,
     DarkMode,
     Fileupload,
+    Modal,
     Spinner,
     Toggle,
   } from "flowbite-svelte";
@@ -91,6 +92,7 @@
     if (!passwordRegex.test(password.toString())) {
       p.result = 2;
       p.message = "Password is not string engough!";
+      loading = false;
       cancel();
     } else {
       if (password !== confirmPassword) {
@@ -124,6 +126,7 @@
       });
 
     return async ({ result }) => {
+      loading = false;
       console.log(result.status);
       switch (result.type) {
         case "success":
@@ -136,6 +139,7 @@
           }
           break;
         case "failure":
+          loading = false;
           console.log(result.status);
           break;
 

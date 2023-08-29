@@ -133,13 +133,13 @@
                     }}
                     >{moment(showing.showing_date)
                       .tz("Atlantic/Reykjavik")
-                      .format("LT")}</Button
+                      .format("LLL")}</Button
                   >
                 {:else}
                   <Button outline class="mr-2 my-5" disabled
                     >{moment(showing.showing_date)
                       .tz("Atlantic/Reykjavik")
-                      .format("LT")}</Button
+                      .format("LLL")}</Button
                   >
                 {/if}
               {/if}

@@ -47,9 +47,7 @@
               <Badge color="yellow" border>
                 <ClockOutline />
                 <span class="ml-3"
-                  >{moment(ticket.create_at)
-                    .tz("Atlantic/Reykjavik")
-                    .format("LLL")}</span
+                  >{moment(ticket.create_at).format("LLL")}</span
                 >
               </Badge>
             </div>

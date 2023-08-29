@@ -2,17 +2,14 @@
   import play from "../../lib/ui/play.png";
   import moment from "moment-timezone";
   export let data;
-  let movies = data.data.movies;
+  let movies = data.data;
+  let commingSoon = data.commingsoon;
+  console.log(movies);
   let trailer = [];
-  let commings = [];
   import Card from "$lib/ui/card.svelte";
   import { EmbedModal } from "$lib";
-  import { slideshowStore } from "$lib/stores/slideshow";
   for (let i = 0; i < 10; i++) {
-    trailer.push(movies[i + 6].trailer);
-  }
-  for (let i = 0; i < 5; i++) {
-    commings.push(movies[i + 10]);
+    trailer.push(movies[i + 3].trailer);
   }
   let popupModal = false;
   let trialerVideo = "";
@@ -20,7 +17,6 @@
     popupModal = true;
     trialerVideo = vid;
   };
-  slideshowStore.set(data.slideshow);
 </script>
 
 <title>Legacy Cinema | Home</title>
@@ -51,8 +47,9 @@
   comming soon
 </h1>
 <div class="grid grid-flow-col gap-5 overflow-x-auto h-[460px]" id="style-1">
-  {#each commings as movie}
+  {#each commingSoon as movie}
     <Card
+      commingSoon={true}
       url={movie.poster.substring(8)}
       title={movie.title}
       release={moment(movie.create_at).format("LL")}

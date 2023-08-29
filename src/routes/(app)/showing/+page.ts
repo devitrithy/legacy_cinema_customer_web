@@ -6,7 +6,7 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ setHeaders }) => {
   const movie = async () => {
-    const data = await fetch(`${PUBLIC_API_ENDPOINT}/movie`, {
+    const data = await fetch(`${PUBLIC_API_ENDPOINT}/movie/now`, {
       headers: { Authorization: `Bearer ${PUBLIC_SECRET_GUEST_KEY}` },
     });
     const cache = data.headers.get("cache-control");

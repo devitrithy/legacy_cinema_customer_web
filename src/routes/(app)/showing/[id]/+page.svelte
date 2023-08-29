@@ -20,14 +20,6 @@
       targetElement.scrollIntoView({ behavior: "smooth" });
     }
   }
-  function convertTZ(date: Date) {
-    return new Date(
-      (typeof date === "string" ? new Date(date) : date).toLocaleString(
-        "en-US",
-        { timeZone: "Atlantic/Reykjavik" }
-      )
-    );
-  }
   let loading = false;
   const nextDay = (day: Number) => {
     return new Date(Date.now() + 3600 * 1000 * 24 * day);
@@ -162,15 +154,17 @@
   <div class="flex gap-10 flex-col">
     <div class="flex justify-between">
       <p class="text-2xl text-bold">{movie.title}</p>
-      <button
-        on:click={() => {
-          location = true;
-        }}><ScrollTo targetId="location" text="Show Times" /></button
-      >
+      {#if new Date(movie.releaseDate) < new Date()}
+        <button
+          on:click={() => {
+            location = true;
+          }}><ScrollTo targetId="location" text="Show Times" /></button
+        >
+      {/if}
     </div>
     <p class="flex items-center gap-5">
       <span><CalendarMonthOutline /> </span>
-      {moment(movie.create_at, ["YYYY-MM-DD", "DD-MM-YYYY"]).format(
+      {moment(movie.releaseDate, ["YYYY-MM-DD", "DD-MM-YYYY"]).format(
         "DD MMMM YYYY"
       )}
     </p>
