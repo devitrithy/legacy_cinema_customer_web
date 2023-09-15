@@ -4,8 +4,8 @@
 </script>
 
 <Carousel
-  divClass="!rounded-none"
   {images}
+  divClass="!rounded-none"
   showThumbs={false}
   showIndicators={false}
   slideControls={true}
