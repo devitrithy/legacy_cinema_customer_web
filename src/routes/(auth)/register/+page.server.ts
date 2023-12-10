@@ -11,7 +11,7 @@ export const actions: Actions = {
         return;
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       return fail(err.response.status, { message: err.data.message });
     }
   },

@@ -43,12 +43,12 @@
     }
 
     return async ({ result, update }) => {
-      console.log(result.type);
+      //console.log(result.type);
       switch (result.type) {
         case "success":
           if ($page.url.searchParams.get("r")) {
             const r = $page.url.searchParams.get("r") || "/";
-            console.log(r);
+            //console.log(r);
             goto(`/${r.slice(1)}`);
           } else {
             goto("/");

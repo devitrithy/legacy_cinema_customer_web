@@ -8,8 +8,6 @@
   import { Seat } from "$lib";
   import { goto } from "$app/navigation";
   import axios from "axios";
-  import { createSearchStore, searchHandler } from "$lib/stores/search";
-  import { onDestroy } from "svelte";
   function scrollTo() {
     const targetElement = document.getElementById("seat");
     if (targetElement) {
@@ -21,15 +19,25 @@
   let cinema = $page.url.searchParams.get("cinema");
   let movie = data.movie;
   let showSeat = false;
-  let showMovie;
-  let selected = [];
-  let tickets = [];
+  //console.log(movie.length);
+
+  let showMovie: {
+    price: number;
+    movie: { poster: string; title: any; time: any; genre: any; price_id: any };
+    showing_date: moment.MomentInput;
+    hall: { location: { location_name: any }; hall_name: any };
+    showing_id: any;
+    movie_id: any;
+  };
+
+  let selected: any[] = [];
+  let tickets: any[] = [];
   let loading = false;
   let sid;
-  let total;
-  let disabled;
+  let total: number;
+  let disabled: boolean;
 
-  let showingSeats = async (id) => {
+  let showingSeats = async (id: any) => {
     //
     let token = data.token;
     loading = true;
@@ -51,11 +59,11 @@
           .then((res) => {
             showMovie = res.data.showingtime[0];
             showSeat = true;
-            console.log(showMovie);
+            //console.log(showMovie);
           });
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         goto(`/login`);
       });
     loading = false;
@@ -75,7 +83,7 @@
     }
     let legth = selected.length + 1;
     total = showMovie.price * legth;
-    console.log(selected.length);
+    //console.log(selected.length);
     selected.push(seatNumber);
     selected = selected;
   };

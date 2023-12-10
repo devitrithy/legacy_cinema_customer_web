@@ -6,7 +6,7 @@
 
   export let data: PageData;
   let { booking } = data;
-  console.log(booking.booked[0].Showingtime);
+  //console.log(booking.booked[0].Showingtime);
 </script>
 
 <title>Legacy Cinema | Booking</title>

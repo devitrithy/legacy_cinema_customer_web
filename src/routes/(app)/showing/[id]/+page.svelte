@@ -37,7 +37,7 @@
   let resutlMessage = "";
   let { token } = data;
   let tkn = $page.url.searchParams.get("tkn");
-  console.log(data.locations);
+  //console.log(data.locations);
 
   onMount(async () => {
     if ($page.url.searchParams.get("result") === "success") {
@@ -138,7 +138,7 @@
     }
     let legth = selected.length + 1;
     total = showing.price * legth;
-    console.log(selected.length);
+    //console.log(selected.length);
     selected.push(seatNumber);
     selected = selected;
   };

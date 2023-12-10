@@ -37,7 +37,7 @@ export const actions: Actions = {
     const p = await request.formData();
     const seat = p.get("pay");
     let seats = seat?.toString().split(",");
-    console.log(p.get("price_id"));
+    //console.log(p.get("price_id"));
     let items = [
       {
         genre: p.get("genre"),

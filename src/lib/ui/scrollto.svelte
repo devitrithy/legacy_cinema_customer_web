@@ -15,7 +15,7 @@
 
   onMount(() => {
     setTimeout(() => {
-      console.log("hi"), 30000;
+      //console.log("hi"), 30000;
     });
     const button = document.getElementById(`scrollTo-${targetId}`);
     if (button) {

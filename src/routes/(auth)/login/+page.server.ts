@@ -30,11 +30,11 @@ export const actions: Actions = {
           return redirect(303, `/`);
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
           throw error(400, { message: "Fail to login." });
         });
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       throw error(400, { message: "Fail to login." });
     }
   },

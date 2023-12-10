@@ -4,6 +4,7 @@
 
   export let data: PageData;
   let location = data.location.location[0];
+  //console.log(location);
 </script>
 
 <main>

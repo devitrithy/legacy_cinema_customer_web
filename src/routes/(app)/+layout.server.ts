@@ -11,6 +11,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
     });
     return { data: data.json(), user: locals.user };
   } catch (error) {
-    console.error(error);
+    //console.error(error);
   }
 };

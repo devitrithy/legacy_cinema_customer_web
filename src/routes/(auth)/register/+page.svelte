@@ -105,7 +105,7 @@
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/user/email/${email}`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         if (res.data.available === 1) {
           em.result = 2;
           em.message = "Email already exist! Plaese try another one.";
@@ -116,7 +116,7 @@
     await axios
       .get(`${PUBLIC_API_ENDPOINT}/user/username/${username}`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         if (res.data.available === 1) {
           u.result = 2;
           u.message = "Username already exist! Plaese try another one.";
@@ -127,12 +127,12 @@
 
     return async ({ result }) => {
       loading = false;
-      console.log(result.status);
+      //console.log(result.status);
       switch (result.type) {
         case "success":
           if ($page.url.searchParams.get("r")) {
             const r = $page.url.searchParams.get("r") || "/";
-            console.log(r);
+            //console.log(r);
             goto(`/${r.slice(1)}`);
           } else {
             goto("/login");
@@ -140,7 +140,7 @@
           break;
         case "failure":
           loading = false;
-          console.log(result.status);
+          //console.log(result.status);
           break;
 
         default:

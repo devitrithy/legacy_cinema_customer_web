@@ -4,7 +4,7 @@
   export let data;
   let movies = data.data;
   let commingSoon = data.commingsoon;
-  console.log(movies);
+  //console.log(movies);
   let trailer = [];
   import Card from "$lib/ui/card.svelte";
   import { EmbedModal } from "$lib";
