@@ -93,7 +93,7 @@
 
   let tickets: any[] = [];
   let showing: any;
-  let selected = [];
+  let selected: any[] = [];
   let endpoint = `${PUBLIC_API_ENDPOINT}/thumbnail/`;
   const showingSeat = async (id: any) => {
     loading = true;

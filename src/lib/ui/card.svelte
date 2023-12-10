@@ -41,20 +41,20 @@
       </button>
       <div class="group-hover:block hidden m-5 gap-3">
         <div class="flex gap-3 flex-col">
-          <p class="font-bold uppercase text-2xl">{title}</p>
-          <p class="flex gap-3 items-center">
-            <span>
+          <p class="font-bold text-white uppercase text-2xl">{title}</p>
+          <p class="flex gap-3 items-center text-white">
+            <span class="text-white">
               <ClockOutline />
             </span>{duration}
           </p>
-          <p class="flex items-center gap-3">
+          <p class="flex items-center text-white gap-3">
             <span><CalendarMonthOutline /></span>
             {release}
           </p>
         </div>
       </div>
 
-      <div class="flex flex-col gap-2 mx-3 justify-between">
+      <div class="flex flex-col gap-2 mx-3 justify-between text-white">
         <a
           href={`/showing/${id}`}
           class=" bottom-11 left-0 right-0 hidden group-hover:block border rounded-md uppercase py-2 opacity-95 hover:opacity-100 hover:bg-white hover:text-black w-full text-center"

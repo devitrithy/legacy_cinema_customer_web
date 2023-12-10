@@ -26,11 +26,10 @@
 </script>
 
 <title>Legacy Cinema | Now Showing</title>
-<div class="flex justify-between items-center">
-  <h1 class="mb-12 text-center uppercase text-3xl font-bold">Now Showing</h1>
-  <div class="flex gap-3">
+<div class="flex justify-between">
+  <h1 class="mb-12 text-center uppercase font-bold text-xl">Now Showing</h1>
+  <div>
     <Search size="md" bind:value={$searchStore.search} />
-    <Button class="!p-2.5">Search</Button>
   </div>
 </div>
 

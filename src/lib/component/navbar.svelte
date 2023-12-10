@@ -1,4 +1,6 @@
 <script>
+  // @ts-nocheck
+
   import { page } from "$app/stores";
   import src from "../../public/logo/Logo.png";
   import { auth } from "$lib/stores/auth";
@@ -54,7 +56,6 @@
     </DarkMode>
     {#if !$auth.username}
       <Button href="/login">Login</Button>
-      <Button href="/register">Register</Button>
     {:else}
       <Avatar
         id="avatar-menu"
