@@ -145,14 +145,14 @@
 </script>
 
 <title>Legacy Cinema | {movie.title}</title>
-<div class="flex gap-10 mx-10">
+<div class="col-auto xl:flex gap-10 mx-10 content-center">
   <img
     src={endpoint + movie.poster.substring(8) + "?w=432&h=708"}
-    class=" rounded-lg shadow-lg shadow-red-900"
+    class="rounded-lg shadow-lg shadow-red-900"
     alt={movie.title}
   />
-  <div class="flex gap-10 flex-col">
-    <div class="flex justify-between">
+  <div class="flex gap-10 flex-col mt-5 xl:mt-0">
+    <div class="col sm:flex justify-between">
       <p class="text-2xl text-bold">{movie.title}</p>
       {#if new Date(movie.releaseDate) < new Date()}
         <button
@@ -176,7 +176,7 @@
       <span><TagOutline /></span>
       {movie.genre}
     </p>
-    <p class="w-[50vw]">{movie.description}</p>
+    <p class="w-auto xl:w-[50vw]">{movie.description}</p>
     <Embed url={movie.trailer} auto={true} />
   </div>
 </div>
@@ -184,7 +184,7 @@
   <div class="m-10" id="location">
     <div class="flex justify-between flex-col md:flex-row gap-5">
       <p class="uppercase text-2xl font-bold">Location</p>
-      <div>
+      <div class="flex gap-3">
         <Button
           href={`?day=${new Date().getDate()}`}
           on:click={changeDate}
