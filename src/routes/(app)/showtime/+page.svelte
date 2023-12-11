@@ -91,7 +91,7 @@
 
 <title>Legacy Cinema | Show Time</title>
 
-{#if cinema}
+{#if cinema && movie.length > 0}
   <p class="text-3xl uppercase font-bold">Cinemas</p>
   {#each movie as cinema}
     <div>
@@ -158,7 +158,12 @@
     </div>
   {/each}
 {:else}
-  Movie
+  <div class="h-[600px] flex justify-center items-center">
+    <p class="text-3xl uppercase font-bold">
+      There is no movie Available in this cinema! Please check another one.
+      <a href="/cinema" class="underline">Go Back</a>
+    </p>
+  </div>
 {/if}
 
 {#if showSeat}
